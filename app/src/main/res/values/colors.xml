@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="home_back_unselected">#676767</color>
+    <color name="home_back_selected">#3883D1</color>
+    <color name="home_back_selected01">#E24242</color>
+
+    <color name="title_back">#2F83C7</color>
+
+
+    <color name="product_detail_common">#666666</color>
+
+    <color name="text_progress">#18b4ed</color>
+
+    <color name="divider_line">#e1e1e1</color>
+
+    <color name="product_red_common">#e84768</color>
+
+    <color name="round_red_common">#DC143C</color>
+
+    <color name="my_title_bg">#28baed</color>
+    <color name="more_text">#5A6E9E</color>
+    <color name="white">#ffffff</color>
+
+    <!--通常用于大标题和tab文字-->
+    <color name="title">#0A1220</color>
+    <!--通常用于正文、普通主要文字和辅助重要文字-->
+    <color name="title_text">#2A313D</color>
+    <!--通常用于辅助文字-->
+    <color name="title_subtitle">#9B9B9B</color>
+    <!--通常用于小标题交互文字-->
+    <color name="title_select">#FC6882</color>
+    <!--灰色背景色-->
+    <color name="background_color">#f2f0f0</color>
+    <color name="background_color_green">#419152</color>
+    <color name="background_color_red">#F9EA5A32</color>
+
+    <color name="bg_toolbar">#32A082</color>
+    <color name="my_pic_select">#f76b7e</color>
+    <color name="red">#aacc0000</color>
+    <color name="shadow_color">#7F000000</color>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <!--菜谱步骤布局-->
+    <TextView
+        android:id="@+id/step_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:paddingBottom="5dp"
+        android:textSize="16dp"
+        android:textColor="@color/title"/>
+    <ImageView
+        android:id="@+id/step_iv"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_below="@+id/step_tv"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/step_detail_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/title_text"
+        android:textSize="16dp"
+        android:layout_below="@+id/step_iv"
+        android:layout_marginBottom="15dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_below="@id/step_detail_tv"
+        android:background="#efecec"/>
+</RelativeLayout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.dell.recipebywx.CustomToolBar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:left_btn_src="@drawable/back"
+    app:left_btn_visible="true"
+    app:center_tv_visible="true"
+    app:center_tv_text="浏览历史"
+    android:orientation="vertical"
+    tools:context="com.example.dell.recipebywx.my.ViewLogsActivity">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/views_rcy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+    <TextView
+        android:id="@+id/empty_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/title_subtitle"
+        android:text="你还未浏览过菜谱，去看看吧~"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:visibility="gone"/>
+</com.example.dell.recipebywx.CustomToolBar>

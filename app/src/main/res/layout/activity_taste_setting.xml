@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.dell.recipebywx.CustomToolBar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:left_btn_src="@drawable/back"
+    app:left_btn_visible="true"
+    app:center_tv_visible="true"
+    app:center_tv_text="口味偏好设置"
+    android:orientation="vertical"
+    tools:context="com.example.dell.recipebywx.my.TasteSettingActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="16dp"
+        android:text="删除你已选择的标签"
+        android:textColor="@color/background_color_red"/>
+
+    <com.example.dell.recipebywx.CustomGridView
+        android:id="@+id/label_grv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:numColumns="5"
+        android:listSelector="@android:color/transparent"
+        android:verticalSpacing="20dp"
+        android:horizontalSpacing="30dp">
+    </com.example.dell.recipebywx.CustomGridView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="16dp"
+        android:text="请选择您的偏好"
+        android:textColor="@color/background_color_red"/>
+
+    <com.example.dell.recipebywx.CustomGridView
+        android:id="@+id/label_grv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="15dp"
+        android:numColumns="5"
+        android:listSelector="@android:color/transparent"
+        android:verticalSpacing="20dp"
+        android:horizontalSpacing="30dp">
+    </com.example.dell.recipebywx.CustomGridView>
+
+    <TextView
+        android:id="@+id/save_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/background_color_red"
+        android:layout_marginTop="15dp"
+        android:textSize="16dp"
+        android:text="保存标签"
+        android:gravity="center_horizontal"/>
+
+</com.example.dell.recipebywx.CustomToolBar>

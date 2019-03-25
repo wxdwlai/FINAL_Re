@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.dell.recipebywx.CustomToolBar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:left_btn_visible="true"
+    app:left_btn_src="@drawable/back"
+    app:center_tv_visible="true"
+    app:center_tv_text="消息"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.dell.recipebywx.message.MessageDetailActivity">
+    <TextView
+        android:id="@+id/message_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14dp" />
+    <EditText
+        android:id="@+id/input_etv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"/>
+    <TextView
+        android:id="@+id/send_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:text="发送"
+        android:layout_gravity="center_horizontal"/>
+
+</com.example.dell.recipebywx.CustomToolBar>

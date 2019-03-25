@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.dell.recipebywx">
+
+    <!-- 相机权限 -->
+    <!--加上这个权限之后，拍照会出现闪退的现象-->
+    <!--<uses-permission android:name="android.permission.CAMERA" />-->
+    <!-- 写入SD卡的权限：如果你希望保存相机拍照后的照片 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 读取SD卡的权限:打开相册选取图片所必须的权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 8.0手机允许安装apk -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!-- 必须的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 连接网络权限设置 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".search.SearchRecipeActivity" />
+        <activity
+            android:name=".search.SearchResultActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".home.CategoryActivity" />
+        <activity android:name=".my.UserWeixinInforModel" />
+        <activity android:name=".search.RecipeDetailActivity" />
+        <activity android:name=".my.UserInfoActivity" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.dell.recipebywx.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <activity android:name=".my.MySettingActivity" />
+        <activity android:name=".message.MessageDetailActivity" />
+        <activity android:name=".my.ViewLogsActivity" />
+        <activity android:name=".my.TasteSettingActivity" />
+        <activity android:name=".my.PostRecipeActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
+    </application>
+
+</manifest>

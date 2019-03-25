@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--标题栏样式-->
+    <declare-styleable name="CustomToolBar">
+        <!--左按钮是否可见|背景-->
+        <attr name="left_btn_visible" format="boolean"/>
+        <attr name="left_btn_src" format="reference|color"/>
+        <!--左文本是否可见|文本内容-->
+        <attr name="left_tv_visible" format="boolean"/>
+        <attr name="left_tv_text" format="string"/>
+        <!--中间文本是否可见|文本内容-->
+        <attr name="center_tv_visible" format="boolean"/>
+        <attr name="center_tv_text" format="string"/>
+        <!--右边按钮是否可见|背景-->
+        <attr name="right_btn_visible" format="boolean"/>
+        <attr name="right_btn_src" format="reference|color"/>
+        <!--右文本是否可见|文本内容-->
+        <attr name="right_tv_visible" format="boolean"/>
+        <attr name="right_tv_text" format="string"/>
+        <!--标题是否可见|文本内容-->
+        <attr name="title_visible" format="boolean"/>
+        <attr name="title_text" format="string"/>
+        <!--背景-->
+        <attr name="barBackground" format="reference|color"/>
+        <attr name="line_view_visible" format="boolean"></attr>
+    </declare-styleable>
+    <declare-styleable name="HomeToolBar">
+        <attr name="left_ll_src" format="reference"/>
+        <attr name="left_ll_visible" format="boolean"/>
+        <attr name="center_search_ll_visible" format="boolean"/>
+        <attr name="center_search_text" format="string"/>
+        <attr name="right_button_ll_visible" format="boolean"/>
+        <attr name="right_button2_ll_visible" format="boolean"/>
+        <attr name="right_ll_src" format="reference"/>
+        <attr name="home_right_tv_visible" format="boolean"/>
+        <attr name="home_right_tv_text" format="string"/>
+        <attr name="home_clear_iv_visible" format="boolean"/>
+        <!--背景-->
+        <attr name="homeBarBackground" format="reference|color"/>
+    </declare-styleable>
+    <!--边框的粗度-->
+    <attr name="borderStrokeWidth" format="float"/>
+    <!--边框颜色-->
+    <attr name="borderColor" format="color"/>
+    <!--底边边线左边断开距离-->
+    <attr name="borderBottomLeftBreakSize" format="dimension"/>
+    <!--底边边线右边断开距离-->
+    <attr name="borderBottomRightBreakSize" format="dimension"/>
+    <!--是否需要上边框-->
+    <attr name="needTopBorder" format="boolean"/>
+    <!--是否需要左右边框-->
+    <attr name="needLeftAndRigtBorder" format="boolean"/>
+    <!--是否需要下边框-->
+    <attr name="needBottomBorder" format="boolean"/>
+    <declare-styleable name="BorderRelativeLayout">
+        <attr name="borderStrokeWidth"/>
+        <attr name="borderColor"/>
+        <attr name="borderBottomLeftBreakSize"/>
+        <attr name="borderBottomRightBreakSize"/>
+        <attr name="needTopBorder"/>
+        <attr name="needLeftAndRigtBorder"/>
+        <attr name="needBottomBorder"/>
+    </declare-styleable>
+    <declare-styleable name="pondname">
+        <attr name="pond_name" format="string"/>
+    </declare-styleable>
+</resources>

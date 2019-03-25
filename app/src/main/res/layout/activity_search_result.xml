@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.dell.recipebywx.HomeToolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:left_ll_visible="true"
+    app:left_ll_src="@drawable/back"
+    app:center_search_ll_visible="true"
+    app:right_button_ll_visible="true"
+    android:orientation="vertical"
+    tools:context="com.example.dell.recipebywx.search.SearchResultActivity">
+
+    <TextView
+        android:id="@+id/empty_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="14dp"
+        android:textColor="@color/title_subtitle"
+        android:text="没有结果，换个关键词试试~"
+        android:gravity="center"
+        android:visibility="gone"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_result_rcy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+</com.example.dell.recipebywx.HomeToolbar>

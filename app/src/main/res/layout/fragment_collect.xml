@@ -1,0 +1,41 @@
+<com.example.dell.recipebywx.HomeToolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:left_ll_visible="false"
+    app:center_search_ll_visible="true"
+    app:center_search_text = "搜索我的收藏"
+    app:home_right_tv_visible="true"
+    app:home_right_tv_text="搜索"
+    android:orientation="vertical"
+    tools:context="com.example.dell.recipebywx.collect.CollectFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/collect_ryv"></android.support.v7.widget.RecyclerView>
+    
+    <LinearLayout
+        android:id="@+id/empty_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/airplane"/>
+        <TextView
+            android:id="@+id/empty_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/title_subtitle"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textSize="14dp"
+            android:text="还未收藏过哦~"/>
+    </LinearLayout>
+
+</com.example.dell.recipebywx.HomeToolbar>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:id="@+id/action_bar_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/toolbar_left_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/toolbar_left_iv"
+                android:layout_width="10dp"
+                android:layout_height="18dp"
+                android:src="@drawable/back"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/toolbar_left_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textSize="18dp"
+            android:text="用户名"
+            android:gravity="center"
+            android:textColor="@color/title"
+            android:paddingLeft="18dp"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/toolbar_center_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="@color/title"
+            android:textSize="18dp"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/toolbar_right_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/toolbar_right_image"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/setting"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

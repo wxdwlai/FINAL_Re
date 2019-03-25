@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.dell.recipebywx.HomeToolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:left_ll_visible="true"
+    app:left_ll_src="@drawable/back"
+    app:center_search_ll_visible="true"
+    app:home_right_tv_visible="true"
+    app:home_right_tv_text="搜索"
+    android:orientation="vertical"
+    tools:context="com.example.dell.recipebywx.search.SearchRecipeActivity">
+
+    <LinearLayout
+        android:id="@+id/empty_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/recent_search_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16dp"
+                android:textColor="@color/title_text"
+                android:text="最近搜索"/>
+            <LinearLayout
+                android:id="@+id/delete_recent_iv"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/delete" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <GridView
+            android:layout_marginTop="8dp"
+            android:id="@+id/recent_search_grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="4"
+            android:horizontalSpacing="4dp"
+            android:verticalSpacing="10dp"
+            android:visibility="gone"></GridView>
+        <TextView
+            android:id="@+id/recommend_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/title_text"
+            android:textSize="16dp"
+            android:text="推荐搜索"
+            android:layout_marginTop="10dp" />
+        <GridView
+            android:id="@+id/recommend_grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:numColumns="4"
+            android:horizontalSpacing="4dp"
+            android:verticalSpacing="10dp"></GridView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/empty_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="14dp"
+        android:textColor="@color/title_subtitle"
+        android:text="没有结果，换个关键词试试~"
+        android:gravity="center"
+        android:visibility="gone"/>
+
+</com.example.dell.recipebywx.HomeToolbar>
