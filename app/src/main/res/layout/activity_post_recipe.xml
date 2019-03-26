@@ -36,6 +36,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+                        android:alpha="0.5"
                         android:background="@drawable/add"/>
                     <TextView
                         android:layout_width="match_parent"
@@ -127,11 +128,12 @@
                     android:textSize="18dp"
                     android:textColor="@color/title"
                     android:text="做法"/>
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/add_steps_rcy"
-                    android:layout_marginTop="8dp"
+                <LinearLayout
+                    android:id="@+id/step_ll"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </LinearLayout>
                 <TextView
                     android:id="@+id/add_step_tv"
                     android:layout_width="match_parent"

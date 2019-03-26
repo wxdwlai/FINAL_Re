@@ -47,4 +47,10 @@ public class ServiceAPI {
     public static String deleteTaste = DOMAIN + "deleteTaste";//删除口味标签
 
     public static String deleteSearch = DOMAIN + "deleteSearch";//删除用户搜索记录关键词
+
+    public static String putRecipe = DOMAIN + "putRecipe";//保存菜谱基本信息
+
+    public static String getAllType = DOMAIN + "recipeType";//查找所有菜谱类别
+
+    public static String putSteps = DOMAIN + "putSteps";//保存菜谱步骤
 }

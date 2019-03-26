@@ -14,7 +14,7 @@
         android:maxLength="50"
         android:gravity="center_vertical"
         android:textColor="@color/title_text"
-        android:hint="请输入食材以及用量"
+        android:hint="请输入食材"
         android:background="@null"/>
     <EditText
         android:id="@+id/item_materia_num_tv"
@@ -27,8 +27,7 @@
         android:gravity="center_vertical"
         android:textColor="@color/title_text"
         android:hint="请输入用量"
-        android:background="@null"
-        android:visibility="gone"/>
+        android:background="@null"/>
     <ImageView
         android:id="@+id/item_materia_delete_iv"
         android:layout_width="20dp"

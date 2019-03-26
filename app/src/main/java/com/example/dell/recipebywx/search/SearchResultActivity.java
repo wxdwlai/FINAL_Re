@@ -165,7 +165,9 @@ public class SearchResultActivity extends AppCompatActivity {
             holder.position = position;
             holder.cookingName.setText(list.get(position).getTitle());
             holder.cookingMaterias.setText(list.get(position).getIngs());
-            holder.userName.setText(list.get(position).getTags().replace("\n"," "));
+            if (list.get(position).getTags().length() != 0) {
+                holder.userName.setText(list.get(position).getTags().replace("\n"," "));
+            }
 //            holder.cookingScore.setText(String.valueOf(list.get(position).getScore()));
 //            holder.cookingNumber.setText(list.get(position).getTitle());
             XutilsHttp.getInstance().bindCircularImage3(holder.cookingImage,list.get(position).getImage().toString(),10);
