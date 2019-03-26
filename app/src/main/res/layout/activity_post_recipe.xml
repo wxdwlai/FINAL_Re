@@ -90,10 +90,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <com.example.dell.recipebywx.my.MateriaLinearLayout
-                        android:id="@+id/materia_item"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></com.example.dell.recipebywx.my.MateriaLinearLayout>
+                    <!--<com.example.dell.recipebywx.my.MateriaLinearLayout-->
+                        <!--android:id="@+id/materia_item"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"></com.example.dell.recipebywx.my.MateriaLinearLayout>-->
                     <!--<include-->
                         <!--android:id="@+id/materia_item"-->
                         <!--layout="@layout/layout_materia_item"/>-->
