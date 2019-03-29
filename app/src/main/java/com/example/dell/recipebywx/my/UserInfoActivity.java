@@ -102,7 +102,6 @@ public class UserInfoActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        getUser(userId);
         back = (LinearLayout)findViewById(R.id.toolbar_left_btn);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +127,7 @@ public class UserInfoActivity extends AppCompatActivity {
         userLikeTv = (TextView)findViewById(R.id.id_like_tv);
         saveUserInfoTv = (TextView)findViewById(R.id.save_user_info_tv);
         updateTv = (TextView)findViewById(R.id.save_user_info_tv);
+        getUser(userId);
         if (localUserInfo.getUserInfo().getUid().equals(userId)) {
             userNameTv.setVisibility(View.GONE);
             userAreaTv.setVisibility(View.GONE);
@@ -193,6 +193,13 @@ public class UserInfoActivity extends AppCompatActivity {
                             })
                             .create();
                     alertDialog.show();
+                }
+            });
+            userTasteLl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(UserInfoActivity.this,TasteSettingActivity.class);
+                    startActivity(intent);
                 }
             });
             updateTv.setVisibility(View.VISIBLE);
@@ -382,7 +389,7 @@ public class UserInfoActivity extends AppCompatActivity {
         String name = userNameEtv.getText().toString();
         String sex = userSexTv.getText().toString();
         String location = userAreaEtv.getText().toString();
-        String image = userId+new SimpleDateFormat("yyyyMMddHHmmss").format(new Timestamp(System.currentTimeMillis()));
+        String image = userId + String.valueOf(Math.random());;
         int sexI = 0;
         if (sex.equals("男")) {
             sexI = 1;
