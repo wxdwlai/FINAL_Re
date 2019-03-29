@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -37,6 +38,7 @@ import com.example.dell.recipebywx.utils.GlideCircleTransform;
 import com.example.dell.recipebywx.utils.GlideRoundTransform;
 import com.example.dell.recipebywx.utils.Local;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
+import com.example.dell.recipebywx.utils.SpaceItemDecoration;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
@@ -75,11 +77,17 @@ public class MyFragment extends Fragment {
     private TasteAdapter adapter;
 
     private ViewLogsModel model;
-    private RecyclerView recyclerView;
+
     private List<ViewLogsModel.DataBean> list = new ArrayList<>();
 
     //创建菜谱功能入口
     private LinearLayout addRecipe;
+
+    private LinearLayout recipeLl;
+    private RecyclerView recyclerView;
+    private RecipeAdapter recipeAdapter;
+    private List<UserInforModel.DataBean.RecipesBean> recipeList = new ArrayList<>();
+    private TextView allTv;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,6 +103,19 @@ public class MyFragment extends Fragment {
         tasetRcy.setLayoutManager(manager);
         adapter = new TasteAdapter(getContext(),tasteList);
         tasetRcy.setAdapter(adapter);
+    }
+
+    void initRecipeView() {
+        recyclerView = (RecyclerView)view.findViewById(R.id.recipe_rcy);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        manager.setAutoMeasureEnabled(true);
+        manager.setSmoothScrollbarEnabled(true);
+        recyclerView.setLayoutManager(manager);
+        recipeAdapter = new RecipeAdapter(getContext(),recipeList);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setAdapter(recipeAdapter);
+        recyclerView.addItemDecoration(new SpaceItemDecoration(0,15));
     }
 
     @Override
@@ -121,6 +142,8 @@ public class MyFragment extends Fragment {
         viewLogsLl = (LinearLayout)view.findViewById(R.id.views_ll);
         tasetLikeLl = (LinearLayout)view.findViewById(R.id.taset_like_ll);
         addRecipe = (LinearLayout)view.findViewById(R.id.toolbar_left_button);
+        recipeLl = (LinearLayout)view.findViewById(R.id.recipe_ll);
+        allTv = (TextView)view.findViewById(R.id.all_tv);
 
         if (userId == null || userId.length() == 0) {
             noUserLl.setVisibility(View.VISIBLE);
@@ -160,7 +183,7 @@ public class MyFragment extends Fragment {
         settingLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),MySettingActivity.class);
+                Intent intent = new Intent(getActivity(),UserInfoActivity.class);
                 startActivity(intent);
             }
         });
@@ -188,6 +211,14 @@ public class MyFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),PostRecipeActivity.class);
                 intent.putExtra("uid",localUserInfo.getUserInfo().getUid());
+                startActivity(intent);
+            }
+        });
+
+        allTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),ViewLogsActivity.class);
                 startActivity(intent);
             }
         });
@@ -345,6 +376,62 @@ public class MyFragment extends Fragment {
             }
         }
     }
+
+    public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.Holder> {
+
+        private Context context;
+        private List<UserInforModel.DataBean.RecipesBean> list;
+
+        public RecipeAdapter(Context context, List<UserInforModel.DataBean.RecipesBean> list) {
+            this.context = context;
+            this.list = list;
+        }
+
+        @Override
+        public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+            Holder holder = null;
+            View view = LayoutInflater.from(context).inflate(R.layout.layout_common_image,parent,false);
+            holder = new Holder(view);
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(Holder holder, final int position) {
+            Glide.with(context).load(list.get(position).getImage())
+            .transform(new CenterCrop(context),new GlideRoundTransform(context,5))
+            .into(holder.imageView);
+            holder.position = position;
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+            private ImageView imageView;
+            private int position;
+            public Holder(View itemView) {
+                super(itemView);
+                imageView = (ImageView)itemView.findViewById(R.id.image_iv);
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(),RecipeDetailActivity.class);
+                        intent.putExtra("reid",String.valueOf(list.get(position).getReid()));
+                        startActivity(intent);
+                    }
+                });
+            }
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        }
+    }
+
     public void getUser() {
         Map<String, String> map = new HashMap<>();
         map.put("uid",localUserInfo.getUserInfo().getUid());
@@ -357,7 +444,18 @@ public class MyFragment extends Fragment {
                     if (userInforModel.isSuccess()) {
                         tasteList.clear();
                         tasteList = userInforModel.getData().getUserTastes();
-                        initRecyclerView();
+//                        initRecyclerView();
+                        recipeList.clear();
+                        recipeList.addAll(userInforModel.getData().getRecipes());
+                        if (recipeList.size() != 0) {
+                            if (recyclerView == null)
+                                initRecipeView();
+                            else recipeAdapter.notifyDataSetChanged();
+//                            if (recipeList.size()>1) allTv.setText(View.VISIBLE);
+                        }
+                        else {
+
+                        }
                         userNameTv.setText(userInforModel.getData().getUserName());
                         if (userInforModel.getData().getSex() == 1) {
                             userSextIv.setImageResource(R.drawable.boy2);
@@ -369,6 +467,7 @@ public class MyFragment extends Fragment {
                                 .load(userInforModel.getData().getImage())
                                 .transform(new CenterCrop(getContext()),new GlideCircleTransform(getContext()))
                                 .into(userIconIv);
+//                        XutilsHttp.getInstance().bindCircularImage(userIconIv, userInforModel.getData().getImage());
                     }
                 }
             }

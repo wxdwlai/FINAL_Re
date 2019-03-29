@@ -140,7 +140,10 @@ public class CookingListFragment extends Fragment {
             holder.positon = position;
             holder.cookingName.setText(list.get(position).getTitle());
             holder.cookingMaterias.setText(list.get(position).getIngs());
-            holder.userName.setText(list.get(position).getTags());
+            if (list.get(position).getTags() != null && list.get(position).getTags().length() != 0) {
+                holder.userName.setText(list.get(position).getTags().replaceAll("\n"," "));
+            }
+
 //            holder.cookingScore.setText(list.get(position).getCookingScore());
 //            holder.cookingNumber.setText(list.get(position).getCookingNum());
 //            Glide.with(context).load();

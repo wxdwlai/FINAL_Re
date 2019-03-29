@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.dell.recipebywx.R;
 import com.example.dell.recipebywx.home.CookingListFragment;
 import com.example.dell.recipebywx.model.CookingModel;
+import com.example.dell.recipebywx.model.RecipeDetailModel;
 import com.example.dell.recipebywx.model.SearchResultModel;
 import com.example.dell.recipebywx.service.ServiceAPI;
 import com.example.dell.recipebywx.service.XutilsHttp;
@@ -165,12 +166,26 @@ public class SearchResultActivity extends AppCompatActivity {
             holder.position = position;
             holder.cookingName.setText(list.get(position).getTitle());
             holder.cookingMaterias.setText(list.get(position).getIngs());
-            if (list.get(position).getTags().length() != 0) {
-                holder.userName.setText(list.get(position).getTags().replace("\n"," "));
-            }
+            if (list != null) {
+                if (list.get(position).getTags() != null && list.get(position).getTags().length() != 0) {
+                    holder.userName.setText(list.get(position).getUserInfo().getUserName());
+//                    holder.userName.setText(list.get(position).getTags().replace("\n"," "));
+//                    holder.userName.setText();
+                }
+//                List<SearchResultModel.DataBean.RecipeTypesBean> typesBeanList = new ArrayList<>();
+//                typesBeanList = list.get(position).getRecipeTypes();
+//                if (typesBeanList.size() != 0) {
+//                    String tag = "";
+//                    for (int i=0;i<typesBeanList.size();i++) {
+//                        tag += typesBeanList.get(i).getTypes().getTypeName() + " ";
+//                    }
+//                    holder.userName.setText(tag);
+//                }
+
 //            holder.cookingScore.setText(String.valueOf(list.get(position).getScore()));
 //            holder.cookingNumber.setText(list.get(position).getTitle());
-            XutilsHttp.getInstance().bindCircularImage3(holder.cookingImage,list.get(position).getImage().toString(),10);
+                XutilsHttp.getInstance().bindCircularImage3(holder.cookingImage,list.get(position).getImage().toString(),10);
+            }
         }
 
         @Override

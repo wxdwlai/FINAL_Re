@@ -246,7 +246,9 @@ public class CollectFragment extends Fragment {
             holder.position = position;
             holder.cookingName.setText(list.get(position).getTitle());
             holder.cookingMaterias.setText(list.get(position).getIngs());
-            holder.userName.setText(list.get(position).getTags());
+            if (list.get(position).getTags() != null && list.get(position).getTags().length() != 0) {
+                holder.userName.setText(list.get(position).getTags().replaceAll("\n"," "));
+            }
             holder.cookingScore.setText(String.valueOf(list.get(position).getScore()));
             holder.cookingNumber.setText(list.get(position).getTitle());
             Glide.with(context)

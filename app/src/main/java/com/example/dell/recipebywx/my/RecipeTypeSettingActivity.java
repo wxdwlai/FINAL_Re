@@ -34,7 +34,7 @@ public class RecipeTypeSettingActivity extends AppCompatActivity {
     private CustomGridView types;
     private TypeAdapter adapter;
     private List<TypeModel.DataBean> list = new ArrayList<>();
-    private List<String> choose = new ArrayList<>();
+    private ArrayList<String> choose = new ArrayList<>();
     private String[] strings;
     private TextView saveTv;
     private List<Integer> resultList = new ArrayList<>();
@@ -59,7 +59,7 @@ public class RecipeTypeSettingActivity extends AppCompatActivity {
                 for (int i=0;i<choose.size();i++) {
                     strings[i] = choose.get(i);
                 }
-                intent.putExtra("types", "标签");
+                intent.putStringArrayListExtra("types",null);
                 setResult(RESULT_OK,intent);
                 finish();
             }
@@ -72,7 +72,7 @@ public class RecipeTypeSettingActivity extends AppCompatActivity {
                 for (int i=0;i<choose.size();i++) {
                     strings[i] = choose.get(i);
                 }
-                intent.putExtra("types","标签");
+                intent.putExtra("types",choose);
                 setResult(RESULT_OK,intent);
                 finish();
             }

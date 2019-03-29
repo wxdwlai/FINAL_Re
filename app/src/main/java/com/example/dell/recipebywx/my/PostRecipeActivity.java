@@ -25,6 +25,7 @@ import android.text.InputType;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -36,7 +37,9 @@ import android.widget.Toast;
 
 import com.example.dell.recipebywx.MainActivity;
 import com.example.dell.recipebywx.R;
+import com.example.dell.recipebywx.model.AddRecipeResponseModel;
 import com.example.dell.recipebywx.model.RecipeDetailModel;
+import com.example.dell.recipebywx.model.TasteModel;
 import com.example.dell.recipebywx.model.UserInforModel;
 import com.example.dell.recipebywx.service.ServiceAPI;
 import com.example.dell.recipebywx.service.XutilsHttp;
@@ -53,6 +56,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -71,7 +75,6 @@ public class PostRecipeActivity extends AppCompatActivity {
     private EditText addNameEtv;
     private EditText addIntroEtv;
 
-    private String reid;
     //添加用料
     private int countMateria = 1;
     private LinearLayout materiaLl;
@@ -85,7 +88,7 @@ public class PostRecipeActivity extends AppCompatActivity {
     private int countSteps = 1;
     private LinearLayout stepLl;
     private TextView addStepTv;
-    private List<RecipeDetailModel.DataBeanX.DataBean.StepsListBean> stepList = new ArrayList<>();
+    private List<RecipeDetailModel.DataBean.StepsListBean> stepList;
 
     private LinearLayout addTypeLl;
     private LinearLayout addTagLl;
@@ -99,16 +102,21 @@ public class PostRecipeActivity extends AppCompatActivity {
     private String base64Head;
     private Bitmap headBit;
     private String base64List;
-    private List<String> baseList = new ArrayList<>();
-    private List<Bitmap> picList = new ArrayList<>();
+    private List<String> baseList = new ArrayList<String>(Collections.nCopies(31, ""));
+    private List<Bitmap> picList;
     private String materias = "";
+
+    private int index;
+
+    private static final int ADD_TYPE = 3;
+    private ArrayList<String> typeList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_recipe);
         localUserInfo = new LocalUserInfo(getApplicationContext());
-        reid = String.valueOf(localUserInfo.getUserInfo().getUid())+new SimpleDateFormat("MMddHHmmss").format(new Date());
+        picList = new ArrayList<>(Collections.nCopies(31,BitmapFactory.decodeResource(getResources(),R.drawable.empty_icon)));
         initView();
         initMateriaRcy();
         this.changeStatusBarTextColor(true);
@@ -128,20 +136,35 @@ public class PostRecipeActivity extends AppCompatActivity {
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-                    picList.add(bitmap);
-//                    noPicLl.setVisibility(View.GONE);
-//                    picIv.setVisibility(View.VISIBLE);
-//                    picIv.setImageBitmap(bitmap);
                     base64List = "data:image/jpeg;base64,"+Base64BitmapUtil.bitmapToBase64(bitmap);
-                    baseList.add(base64List);
-//                    if (baseList.size() != 0 && baseList.get(0).length() != 0)  {
-//                        noPicLl.setVisibility(View.GONE);
-//                        picIv.setVisibility(View.VISIBLE);
-//                        picIv.setImageBitmap(picList.get(0));
-//                    }
-//                    else {
-//
-//                    }
+                    if (baseList.get(index).length() != 0) {
+                        baseList.set(index,base64List);
+                        picList.set(index,bitmap);
+                    }
+                    else {
+                        picList.add(index,bitmap);
+                        baseList.add(index,base64List);
+                    }
+                    if (picList.size() != 0) {
+                        for (int i=0;i<countSteps+1;i++) {
+                            if (0 == i) {
+                                noPicLl.setVisibility(View.GONE);
+                                picIv.setVisibility(View.VISIBLE);
+                                picIv.setImageBitmap(picList.get(i));
+                            }
+                            else {
+                                View view = stepLl.getChildAt(i-1);
+                                LinearLayout emptyLl = (LinearLayout)view.findViewById(R.id.empty_step_ll);
+                                ImageView stepIv = (ImageView)view.findViewById(R.id.step_iv);
+                                if (baseList.get(i).length() != 0) {
+                                    emptyLl.setVisibility(View.GONE);
+                                    stepIv.setVisibility(View.VISIBLE);
+                                    stepIv.setImageBitmap(picList.get(i));
+                                }
+
+                            }
+                        }
+                    }
                 }
                 break;
             case CHOOSE_PHOTO:
@@ -158,6 +181,12 @@ public class PostRecipeActivity extends AppCompatActivity {
                 break;
             default:
                 break;
+            case ADD_TYPE:
+                if (resultCode == RESULT_OK) {
+//                    types = new String[20];
+//                    types = data.getStringExtra("types");
+                    typeList = data.getStringArrayListExtra("types");
+                }
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -182,13 +211,13 @@ public class PostRecipeActivity extends AppCompatActivity {
             //如果是file类型的Uri，直接获取图片路径即可
             imagePath = uri.getPath();
         }
-        diaplayImage(imagePath);//根据图片路径显示图片
+        diaplayImage(imagePath,index);//根据图片路径显示图片
     }
 
     private void handleImageBeforeKitKat(Intent data) {
         Uri uri = data.getData();
         String imagePath = getImagePath(uri, null);
-        diaplayImage(imagePath);
+        diaplayImage(imagePath,index);
     }
     private String getImagePath(Uri uri, String selection) {
         String path = null;
@@ -203,7 +232,7 @@ public class PostRecipeActivity extends AppCompatActivity {
         return path;
     }
 
-    private void diaplayImage(String imagePath) {
+    private void diaplayImage(String imagePath,int index) {
         if (imagePath != null) {
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
@@ -234,19 +263,45 @@ public class PostRecipeActivity extends AppCompatActivity {
             // 这次再真正地生成一个有像素的，经过缩放了的bitmap
             options.inJustDecodeBounds = false;
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath,options);
-            picList.add(bitmap);
-//            noPicLl.setVisibility(View.GONE);
-//            picIv.setVisibility(View.VISIBLE);
-//            picIv.setImageBitmap(bitmap);
             base64List = "data:image/jpeg;base64,"+Base64BitmapUtil.bitmapToBase64(bitmap);
-            baseList.add(base64List);
-//            list.add(bitmap);
-//            picAdapter.notifyDataSetChanged();
-//            if (baseList.size() != 0 && baseList.get(0).length() != 0)  {
-//                noPicLl.setVisibility(View.GONE);
-//                picIv.setVisibility(View.VISIBLE);
-//                picIv.setImageBitmap(picList.get(0));
-//            }
+            if (baseList.get(index).length() != 0) {
+                baseList.set(index,base64List);
+                picList.set(index,bitmap);
+            }
+            else {
+                picList.set(index,bitmap);
+                baseList.set(index,base64List);
+            }
+            if (baseList.size() != 0) {
+                for (int i=0;i<countSteps+1;i++) {
+                    if (0 == i) {
+                        if (baseList.get(i).length() != 0) {
+                            noPicLl.setVisibility(View.GONE);
+                            picIv.setVisibility(View.VISIBLE);
+                            picIv.setImageBitmap(picList.get(i));
+                        }
+                        else {
+                            noPicLl.setVisibility(View.VISIBLE);
+                            picIv.setVisibility(View.GONE);
+                        }
+                    }
+                    else {
+                        View view = stepLl.getChildAt(i-1);
+                        LinearLayout emptyLl = (LinearLayout)view.findViewById(R.id.empty_step_ll);
+                        ImageView stepIv = (ImageView)view.findViewById(R.id.step_iv);
+                        if (baseList.get(i).length() != 0) {
+                            emptyLl.setVisibility(View.GONE);
+                            stepIv.setVisibility(View.VISIBLE);
+                            stepIv.setImageBitmap(picList.get(i));
+                        }
+                        else {
+                            emptyLl.setVisibility(View.VISIBLE);
+                            stepIv.setVisibility(View.GONE);
+                        }
+
+                    }
+                }
+            }
         } else {
             Toast.makeText(PostRecipeActivity.this, "图片加载失败", Toast.LENGTH_SHORT).show();
         }
@@ -284,22 +339,17 @@ public class PostRecipeActivity extends AppCompatActivity {
         addPicLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addPic();
-                if (baseList.size() != 0 && baseList.get(0).length() != 0)  {
-                    noPicLl.setVisibility(View.GONE);
-                    picIv.setVisibility(View.VISIBLE);
-                    picIv.setImageBitmap(picList.get(0));
-                }
+                addPic(0);
             }
         });
         View.inflate(this,R.layout.layout_materia_item,materiaLl);
         View.inflate(this,R.layout.layout_recipe_add_step,stepLl);
         View view = stepLl.getChildAt(countSteps-1);
-        TextView stepTv = (TextView)view.findViewById(R.id.step_tv);
+        final TextView stepTv = (TextView)view.findViewById(R.id.step_tv);
         stepTv.setText("步骤1");
         LinearLayout emptyLl = (LinearLayout)view.findViewById(R.id.empty_step_ll);
         emptyLl.setVisibility(View.VISIBLE);
-        addStepPic(view);
+        addStepPic(view,1);
         //增加一行食材
         addMateriaTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -319,13 +369,20 @@ public class PostRecipeActivity extends AppCompatActivity {
                 ImageView stepIv = view.findViewById(R.id.step_iv);
                 numTv.setText("步骤"+String.valueOf(countSteps));
                 step.setVisibility(View.VISIBLE);
-                addStepPic(view);
+                addStepPic(view,countSteps);
                 if (baseList.size() == countSteps+1 && baseList.get(countSteps).length() != 0)  {
                     step.setVisibility(View.GONE);
                     stepIv.setVisibility(View.VISIBLE);
                     stepIv.setImageBitmap(picList.get(countSteps));
                 }
-//                if (baseList.size()>=countSteps)
+            }
+        });
+
+        addTypeLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostRecipeActivity.this,RecipeTypeSettingActivity.class);
+                startActivityForResult(intent,ADD_TYPE);
             }
         });
 
@@ -338,6 +395,7 @@ public class PostRecipeActivity extends AppCompatActivity {
                 String name;
                 String intro;
                 String materias = "";
+                image = baseList.get(0);
                 name = addNameEtv.getText().toString();
                 intro = addIntroEtv.getText().toString();
                 for (int i=0;i<countMateria;i++) {
@@ -351,25 +409,32 @@ public class PostRecipeActivity extends AppCompatActivity {
                     }
                     materias += m+" "+num+"\n";
                 }
-                System.out.println("image:"+base64List
-                                    +"\nname:"+name
-                                    +"\nintro:"+intro
-                                    +"\nmaterias:"+materias);
-//                putRecipe(name,intro,materias,base64List);
-
+                System.out.println("image:"+image
+                        +"\nname:"+name
+                        +"\nintro:"+intro
+                        +"\nmaterias:"+materias);
+                if (name.length() != 0 && image.length() !=0) {
+                    putRecipe(name,intro,materias,image);
+                }
+                else if (name == null || name.length() == 0) {
+                    Toast.makeText(PostRecipeActivity.this,"菜谱名不能为空",Toast.LENGTH_SHORT);
+                }
+                else if (image == null || image.length() == 0) {
+                    Toast.makeText(PostRecipeActivity.this,"菜谱主图不能为空",Toast.LENGTH_SHORT);
+                }
                 //菜谱步骤，保存至步骤表中
+                stepList = new ArrayList<>();
                 for (int i=0;i<countSteps;i++) {
                     View view = stepLl.getChildAt(i);
                     LinearLayout stepLl = view.findViewById(R.id.empty_step_ll);
                     EditText stepEtv = view.findViewById(R.id.step_detail_tv);
-                    RecipeDetailModel.DataBeanX.DataBean.StepsListBean step = new RecipeDetailModel.DataBeanX.DataBean.StepsListBean();
+                    RecipeDetailModel.DataBean.StepsListBean step = new RecipeDetailModel.DataBean.StepsListBean();
                     String stepDetail = stepEtv.getText().toString();
                     step.setStepId(i+1);
-                    step.setStepImgs(base64List);
-                    step.setReid(34);//这里的reid应该可以更改的，目前是固定的
+                    step.setStepImgs(baseList.get(i+1));
+                    step.setSteps(stepDetail);
                     stepList.add(step);
                 }
-
             }
         });
 
@@ -405,7 +470,7 @@ public class PostRecipeActivity extends AppCompatActivity {
     }
 
     //添加图片
-    void addPic() {
+    void addPic(final int index) {
         final String[] items3 = new String[]{"相机", "相册"};//创建item
         //选择图片反馈
         alertDialog = new AlertDialog.Builder(PostRecipeActivity.this)
@@ -415,7 +480,7 @@ public class PostRecipeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (i == 1) {//相册
-                            openAlbum();
+                            openAlbum(index);
                         } else {
                             File outputImage = new File(Environment.getExternalStorageDirectory().getPath() + "/" + System.currentTimeMillis() + ".jpg");
                             try {
@@ -428,10 +493,10 @@ public class PostRecipeActivity extends AppCompatActivity {
                             }
                             if (Build.VERSION.SDK_INT >= 23) {
                                 imageUri = FileProvider.getUriForFile(PostRecipeActivity.this, "com.example.dell.recipebywx.fileprovider", outputImage);//通过FileProvider创建一个content类型的Uri
-                                openCamera();
+                                openCamera(index);
                             } else {
                                 imageUri = Uri.fromFile(outputImage);
-                                openCamera();
+                                openCamera(index);
                             }
                         }
                     }
@@ -441,12 +506,12 @@ public class PostRecipeActivity extends AppCompatActivity {
     }
 
     //添加步骤图片
-    void addStepPic(View v) {
+    void addStepPic(View v,final int i) {
         LinearLayout stepLl = (LinearLayout)v.findViewById(R.id.step_ll);
         stepLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addPic();
+                addPic(i);
             }
         });
     }
@@ -499,13 +564,15 @@ public class PostRecipeActivity extends AppCompatActivity {
     /**
      * 从相册选择图片或者拍照
      */
-    private void openAlbum() {
+    private void openAlbum(int index) {
+        this.index = index;
         Intent albumIntent = new Intent(Intent.ACTION_PICK);
         albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(albumIntent, CHOOSE_PHOTO);
     }
 
-    private void openCamera() {
+    private void openCamera(int index) {
+        this.index = index;
         //启动相机程序
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
@@ -588,7 +655,6 @@ public class PostRecipeActivity extends AppCompatActivity {
      */
     void putRecipe(String title,String intro,String ings,String image) {
         Map<String,Object> map = new HashMap<>();
-        map.put("reid",reid);
         map.put("uid",localUserInfo.getUserInfo().getUid());
         map.put("title",title);
         map.put("intro",intro);
@@ -598,9 +664,12 @@ public class PostRecipeActivity extends AppCompatActivity {
             @Override
             public void onResponse(String result) {
                 if (result != null) {
-                    UserInforModel model = new Gson().fromJson(result,UserInforModel.class);
+                    AddRecipeResponseModel model = new Gson().fromJson(result,AddRecipeResponseModel.class);
                     if (model.isSuccess()) {
                         Toast.makeText(PostRecipeActivity.this,"菜谱上传成功",Toast.LENGTH_SHORT).show();
+                        putSteps(model.getData().getReid());
+                        putTypes(model.getData().getReid());
+                        finish();
                     }
                 }
             }
@@ -615,16 +684,46 @@ public class PostRecipeActivity extends AppCompatActivity {
     /**
      * 上传菜谱的步骤
      */
-    void putSteps() {
+    void putSteps(int reid) {
         final Map<String, Object> map = new HashMap<>();
+        Map m = new HashMap();
+        m.put("reid",String.valueOf(reid));
         map.put("stepsList",stepList);
-        XutilsHttp.getInstance().put(ServiceAPI.putSteps, null, map, new XutilsHttp.XCallBack() {
+        XutilsHttp.getInstance().put(ServiceAPI.putSteps, m, map, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
                 if (result.length() != 0) {
                     UserInforModel model = new Gson().fromJson(result,UserInforModel.class);
                     if (model.isSuccess()) {
                         Toast.makeText(PostRecipeActivity.this,"菜谱步骤上传成功",Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String result) {
+
+            }
+        });
+    }
+
+    void putTypes(final int reid) {
+        final Map<String, String> map = new HashMap<>();
+        map.put("reid",String.valueOf(reid));
+        Map<String, Object> maps = new HashMap<>();
+//        for (int i=0;types[i] != null; i++) {
+//            System.out.println(types[i]);
+//            typeList.add(i,types[i]);
+//        }
+        maps.put("list",typeList);
+        XutilsHttp.getInstance().put(ServiceAPI.putTypes, map, maps, new XutilsHttp.XCallBack() {
+            @Override
+            public void onResponse(String result) {
+                if (result.length() != 0) {
+                    TasteModel model = new Gson().fromJson(result,TasteModel.class);
+                    if (model.isSuccess()) {
+                        Toast.makeText(PostRecipeActivity.this,"标签保存成功",Toast.LENGTH_SHORT).show();
                     }
                 }
             }

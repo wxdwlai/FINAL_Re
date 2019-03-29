@@ -45,27 +45,27 @@ import java.util.Map;
 
 public class CommentExpandAdapter extends BaseExpandableListAdapter {
     private static final String TAG = "CommentExpandAdapter";
-    private List<RecipeDetailModel.DataBeanX.DataBean.CommentsBean> commentBeanList;//一级评论list
-    private List<RecipeDetailModel.DataBeanX.DataBean.CommentsBean.CommentRepliesBean> replyBeanList;//回复评论list
+    private List<RecipeDetailModel.DataBean.CommentsBean> commentBeanList;//一级评论list
+    private List<RecipeDetailModel.DataBean.CommentsBean.CommentRepliesBean> replyBeanList;//回复评论list
     private Context context;
     private LocalUserInfo localUserInfo;//本地用户信息
     private int pageIndex = 1;//分页加载
-    private RecipeDetailModel.DataBeanX.DataBean dataBean;
+    private RecipeDetailModel.DataBean dataBean;
 
     private CommentBottomSheetDialog dialog;//发表评论提示框
     private String parentId;
 
-    private List<RecipeDetailModel.DataBeanX.DataBean.CommentsBean.CommentRepliesBean> replyBean;
+    private List<RecipeDetailModel.DataBean.CommentsBean.CommentRepliesBean> replyBean;
 
     private UserInforModel userInforModel;
 
-    public CommentExpandAdapter(Context context, List<RecipeDetailModel.DataBeanX.DataBean.CommentsBean> commentBeanList, String postId) {
+    public CommentExpandAdapter(Context context, List<RecipeDetailModel.DataBean.CommentsBean> commentBeanList, String postId) {
         this.context = context;
         localUserInfo = new LocalUserInfo(context);
         this.commentBeanList = commentBeanList;
     }
 
-    public CommentExpandAdapter(Context context, RecipeDetailModel.DataBeanX.DataBean dataBean) {
+    public CommentExpandAdapter(Context context, RecipeDetailModel.DataBean dataBean) {
         this.context = context;
         localUserInfo = new LocalUserInfo(context);
         this.dataBean = dataBean;
@@ -133,7 +133,6 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
             groupHolder = (GroupHolder) convertView.getTag();
         }
         //设置用户信息：头像、昵称、性别等
-        //但是目前这里的处理不够好，因为要调很多次接口，加载过慢（问题已解决，3.4日）
         groupHolder.tv_name.setText(commentBeanList.get(groupPosition).getUserInfo().getUserName());
         if (commentBeanList.get(groupPosition).getUserInfo().getSex() == 1) {
             groupHolder.iv_sex.setImageResource(R.drawable.boy2);
@@ -470,7 +469,7 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
      * func:评论成功后插入一条数据
      * @param commentDetailBean 新的评论数据
      */
-    public void addTheCommentData(RecipeDetailModel.DataBeanX.DataBean.CommentsBean commentDetailBean){
+    public void addTheCommentData(RecipeDetailModel.DataBean.CommentsBean commentDetailBean){
         if(commentDetailBean!=null){
             commentBeanList.add(commentDetailBean);
             notifyDataSetChanged();

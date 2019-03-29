@@ -3,8 +3,8 @@
     package="com.example.dell.recipebywx">
 
     <!-- 相机权限 -->
-    <!--加上这个权限之后，拍照会出现闪退的现象-->
-    <!--<uses-permission android:name="android.permission.CAMERA" />-->
+    <!-- 加上这个权限之后，拍照会出现闪退的现象 -->
+    <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
     <!-- 写入SD卡的权限：如果你希望保存相机拍照后的照片 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 读取SD卡的权限:打开相册选取图片所必须的权限 -->
@@ -55,12 +55,15 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <activity android:name=".my.MySettingActivity" />
         <activity android:name=".message.MessageDetailActivity" />
         <activity android:name=".my.ViewLogsActivity" />
         <activity android:name=".my.TasteSettingActivity" />
-        <activity android:name=".my.PostRecipeActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+        <activity
+            android:name=".my.PostRecipeActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".my.RecipeTypeSettingActivity"></activity>
     </application>
 
 </manifest>

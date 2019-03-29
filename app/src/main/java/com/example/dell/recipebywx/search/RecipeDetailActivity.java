@@ -30,10 +30,12 @@ import com.example.dell.recipebywx.model.CollectResponseModel;
 import com.example.dell.recipebywx.model.CommonModel;
 import com.example.dell.recipebywx.model.RecipeDetailModel;
 import com.example.dell.recipebywx.model.RecipeModel;
+import com.example.dell.recipebywx.my.UserInfoActivity;
 import com.example.dell.recipebywx.service.ServiceAPI;
 import com.example.dell.recipebywx.service.XutilsHttp;
 import com.example.dell.recipebywx.utils.CommentExpandableListView;
 import com.example.dell.recipebywx.utils.DensityUtils;
+import com.example.dell.recipebywx.utils.GlideCircleTransform;
 import com.example.dell.recipebywx.utils.GlideRoundTransform;
 import com.example.dell.recipebywx.utils.Helper;
 import com.example.dell.recipebywx.utils.Local;
@@ -63,7 +65,13 @@ public class RecipeDetailActivity extends AppCompatActivity{
     private RecyclerView recyclerView;
     private RecipeAdapter recipeAdapter;
     private RecipeDetailModel recipeDetailModel;
-    private List<RecipeDetailModel.DataBeanX.DataBean.StepsListBean> stepsList = new ArrayList<>();
+    private List<RecipeDetailModel.DataBean.StepsListBean> stepsList = new ArrayList<>();
+
+    private LinearLayout userLl;
+    private ImageView userIconIv;
+    private TextView userNameTv;
+    private ImageView userSexIv;
+
 
     private LinearLayout commentLl;
     private TextView commentTv;
@@ -79,8 +87,8 @@ public class RecipeDetailActivity extends AppCompatActivity{
     private CommentBottomSheetDialog dialog;
     private CommentExpandableListView commentLv;
     private CommentExpandAdapter commentAdapter;
-    private List<RecipeDetailModel.DataBeanX.DataBean.CommentsBean> commentsBeans = new ArrayList<>();
-    private List<RecipeDetailModel.DataBeanX.DataBean.CommentsBean.CommentRepliesBean> commentRepliesBeans = new ArrayList<>();
+    private List<RecipeDetailModel.DataBean.CommentsBean> commentsBeans = new ArrayList<>();
+    private List<RecipeDetailModel.DataBean.CommentsBean.CommentRepliesBean> commentRepliesBeans = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +106,10 @@ public class RecipeDetailActivity extends AppCompatActivity{
         toolbarTitle = (TextView)findViewById(R.id.toolbar_center_tv);
         cookingImgIv = (ImageView)findViewById(R.id.cooking_iv);
         cookingNameTv = (TextView)findViewById(R.id.cooking_name_tv);
+//        userLl = (LinearLayout)findViewById(R.id.user_ll);
+        userIconIv = (ImageView)findViewById(R.id.user_icon_iv);
+        userNameTv = (TextView)findViewById(R.id.user_name_tv);
+        userSexIv = (ImageView)findViewById(R.id.user_sex_iv);
         cookingMateriaTv = (TextView)findViewById(R.id.cooking_materia_tv);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +117,7 @@ public class RecipeDetailActivity extends AppCompatActivity{
                 finish();
             }
         });
+
 
         likeLl = (LinearLayout)findViewById(R.id.like_ll);
         likeIv = (ImageView)findViewById(R.id.like_iv);
@@ -164,6 +177,23 @@ public class RecipeDetailActivity extends AppCompatActivity{
                 }
             });
         }
+
+        userNameTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecipeDetailActivity.this, UserInfoActivity.class);
+                intent.putExtra("userId",String.valueOf(recipeDetailModel.getData().getUid()));
+                startActivity(intent);
+            }
+        });
+        userIconIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecipeDetailActivity.this, UserInfoActivity.class);
+                intent.putExtra("userId",String.valueOf(recipeDetailModel.getData().getUid()));
+                startActivity(intent);
+            }
+        });
     }
 
     private void initData() {
@@ -189,13 +219,12 @@ public class RecipeDetailActivity extends AppCompatActivity{
     private void initComment() {
         commentLv = (CommentExpandableListView)findViewById(R.id.comment_lv);
         commentLv.setGroupIndicator(null);
-        commentAdapter = new CommentExpandAdapter(RecipeDetailActivity.this,recipeDetailModel.getData().getData());
+        commentAdapter = new CommentExpandAdapter(RecipeDetailActivity.this,recipeDetailModel.getData());
         commentLv.setAdapter(commentAdapter);
         //默认展开所有回复
         for (int i = 0; i < commentsBeans.size(); i++) {
             commentLv.expandGroup(i);
         }
-
     }
 
     private void changeStatusBarTextColor(boolean isBlack) {
@@ -206,9 +235,9 @@ public class RecipeDetailActivity extends AppCompatActivity{
     public class RecipeAdapter extends RecyclerView.Adapter<Holder>{
 
         private Context context;
-        private List<RecipeDetailModel.DataBeanX.DataBean.StepsListBean> stepsList;
+        private List<RecipeDetailModel.DataBean.StepsListBean> stepsList;
 
-        public RecipeAdapter(Context context,List<RecipeDetailModel.DataBeanX.DataBean.StepsListBean> stepsList) {
+        public RecipeAdapter(Context context,List<RecipeDetailModel.DataBean.StepsListBean> stepsList) {
             this.context = context;
             this.stepsList = stepsList;
         }
@@ -274,7 +303,6 @@ public class RecipeDetailActivity extends AppCompatActivity{
     }
 
     /**
-     * by moos on 2018/04/20
      * func:弹出评论框
      */
     private void showCommentDialog() {
@@ -344,11 +372,11 @@ public class RecipeDetailActivity extends AppCompatActivity{
             @Override
             public void onResponse(String result) {
                 if (result != null) {
-                    Gson gson = new Gson();
-                    recipeDetailModel = gson.fromJson(result,RecipeDetailModel.class);
+                    recipeDetailModel = new RecipeDetailModel();
+                    recipeDetailModel = new Gson().fromJson(result,RecipeDetailModel.class);
                     if (recipeDetailModel.isSuccess()) {
-                        stepsList = recipeDetailModel.getData().getData().getStepsList();
-                        commentsBeans = recipeDetailModel.getData().getData().getComments();
+                        stepsList = recipeDetailModel.getData().getStepsList();
+                        commentsBeans = recipeDetailModel.getData().getComments();
                         if (recyclerView == null) {
                             initRecyclerView();
                         }
@@ -356,18 +384,21 @@ public class RecipeDetailActivity extends AppCompatActivity{
                             recipeAdapter.notifyDataSetChanged();
                         }
                         //封面图片
-                        XutilsHttp.getInstance().bindCircularImage2(cookingImgIv,recipeDetailModel.getData().getData().getImage());
+                        Glide.with(getApplicationContext()).load(recipeDetailModel.getData().getImage())
+                                .transform(new GlideRoundTransform(getApplicationContext()))
+                                .into(cookingImgIv);
+//                        XutilsHttp.getInstance().bindCircularImage2(cookingImgIv,recipeDetailModel.getData().getImage());
                         //菜名
-                        title.setText(recipeDetailModel.getData().getData().getTitle());
-                        cookingNameTv.setText(recipeDetailModel.getData().getData().getTitle());
-                        cookingMateriaTv.setText(recipeDetailModel.getData().getData().getIngs());
-                        commentTv.setText(String.valueOf(recipeDetailModel.getData().getData().getComments().size()));
+                        title.setText(recipeDetailModel.getData().getTitle());
+                        cookingNameTv.setText(recipeDetailModel.getData().getTitle());
+                        cookingMateriaTv.setText(recipeDetailModel.getData().getIngs());
+                        commentTv.setText(String.valueOf(recipeDetailModel.getData().getComments().size()));
 //                        likeTv.setText(String.valueOf(recipeDetailModel.getData().getData().getLikes()));
                         //判断当前用户是否收藏菜谱
                         boolean isCollect = false;
-                        List<RecipeDetailModel.DataBeanX.DataBean.UserCollectsBean> collectsBeanList = recipeDetailModel.getData().getData().getUserCollects();
-                        List<RecipeDetailModel.DataBeanX.DataBean.UserCollectsBean> collects = new ArrayList<>();
-                        List<RecipeDetailModel.DataBeanX.DataBean.UserCollectsBean> likes = new ArrayList<>();
+                        List<RecipeDetailModel.DataBean.UserCollectsBean> collectsBeanList = recipeDetailModel.getData().getUserCollects();
+                        List<RecipeDetailModel.DataBean.UserCollectsBean> collects = new ArrayList<>();
+                        List<RecipeDetailModel.DataBean.UserCollectsBean> likes = new ArrayList<>();
                         for (int i=0;i<collectsBeanList.size();i++) {
                             if (collectsBeanList.get(i).isType()) {
                                 likes.add(collectsBeanList.get(i));
@@ -435,7 +466,20 @@ public class RecipeDetailActivity extends AppCompatActivity{
                         if (commentsBeans.size() != 0) {
                             initComment();
                         }
-
+                        RecipeDetailModel.DataBean.UserInfoBean userInfo = recipeDetailModel.getData().getUserInfo();
+//                        XutilsHttp.getInstance().bindCircularImage(userIconIv,userInfo.getImage());
+                        Glide.with(getApplicationContext()).load(userInfo.getImage())
+                                .transform(new GlideCircleTransform(getApplicationContext())).into(userIconIv);
+                        userNameTv.setText(recipeDetailModel.getData().getUserInfo().getUserName());
+                        if (userInfo.getSex() != 0) {
+                            userSexIv.setVisibility(View.VISIBLE);
+                            if (userInfo.getSex() == 1) {
+                                userSexIv.setImageResource(R.drawable.boy2);
+                            }
+                            else {
+                                userSexIv.setImageResource(R.drawable.girl2);
+                            }
+                        }
                     }
                 }
             }
@@ -497,7 +541,7 @@ public class RecipeDetailActivity extends AppCompatActivity{
      */
     void postComment(final String context) {
         Map<String, Object> map = new HashMap<>();
-        map.put("reid",recipeDetailModel.getData().getData().getReid());
+        map.put("reid",recipeDetailModel.getData().getReid());
         map.put("puid",localUserInfo.getUserInfo().getUid());
         map.put("type",1);
         map.put("context",context);

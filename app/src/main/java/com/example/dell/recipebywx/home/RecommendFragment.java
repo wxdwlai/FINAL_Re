@@ -181,7 +181,9 @@ public class RecommendFragment extends Fragment {
         public void onBindViewHolder(Holder holder, int position) {
             holder.position = position;
             holder.title1.setText(list.get(position).getTitle());
-            holder.tagTv.setText(list.get(position).getTags());
+            if (list.get(position).getTags() != null && list.get(position).getTags().length() != 0) {
+                holder.tagTv.setText(list.get(position).getTags().replaceAll("\n"," "));
+            }
 //            holder.image1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             Glide.with(context)
                     .load(list.get(position).getImage())

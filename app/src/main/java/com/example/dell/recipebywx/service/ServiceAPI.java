@@ -53,4 +53,8 @@ public class ServiceAPI {
     public static String getAllType = DOMAIN + "recipeType";//查找所有菜谱类别
 
     public static String putSteps = DOMAIN + "putSteps";//保存菜谱步骤
+
+    public static String recipeType = DOMAIN + "recipeType";//获取所有菜谱类型
+
+    public static String putTypes = DOMAIN + "putTypes";//保存菜谱类别
 }

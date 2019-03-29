@@ -141,7 +141,7 @@
                     android:layout_marginTop="10dp"
                     android:textSize="14dp"
                     android:textColor="@color/background_color_red"
-                    android:text="再增加一行"/>
+                    android:text="再增加一步"/>
             </LinearLayout>
 
             <LinearLayout
@@ -151,6 +151,7 @@
                 android:orientation="horizontal"
                 android:layout_marginLeft="18dp"
                 android:layout_marginRight="18dp"
+                android:layout_marginTop="15dp"
                 android:layout_gravity="center_vertical">
                 <TextView
                     android:layout_width="0dp"
@@ -171,7 +172,9 @@
                 android:orientation="horizontal"
                 android:layout_marginLeft="18dp"
                 android:layout_marginRight="18dp"
-                android:layout_gravity="center_vertical">
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_vertical"
+                android:visibility="gone">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
