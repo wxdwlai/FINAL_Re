@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--<include layout="@layout/include_title_while"/>-->
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                app:layout_scrollFlags="scroll">
+
+                <ImageView
+                    android:id="@+id/id_bg_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="202dp"
+                    android:alpha="0.4" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="202dp"
+                    android:layout_alignTop="@id/id_bg_iv"
+                    android:alpha="0.1"
+                    android:background="#000000"></View>
+
+                <LinearLayout
+                    android:id="@+id/id_back_iv"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="16dp"
+                        android:layout_marginLeft="18dp"
+                        android:src="@drawable/back" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/id_user_infor_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="128dp"
+                    android:layout_marginRight="18dp">
+
+                    <LinearLayout
+                        android:id="@+id/id_user_name_ll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="130dp"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/id_user_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_24"
+                            android:textStyle="bold"
+                            android:hint="用户名"/>
+
+                        <ImageView
+                            android:id="@+id/id_user_sex_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/girl2"
+                            android:layout_gravity="center_vertical"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/id_user_name_ll"
+                        android:layout_marginLeft="130dp"
+                        android:layout_marginTop="4dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/id_user_des_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="这家伙比较懒，啥都没有写~"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_12" />
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_marginLeft="4dp"
+                            android:src="@drawable/write"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/id_user_icon_iv"
+                    android:layout_width="94dp"
+                    android:layout_height="94dp"
+                    android:background="@drawable/image_shape_corner"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="105dp"/>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="94dp"-->
+                    <!--android:layout_height="94dp"-->
+                    <!--android:layout_marginLeft="30dp"-->
+                    <!--android:layout_marginTop="105dp"-->
+                    <!--android:background="@drawable/shape_corner">-->
+
+                    <!---->
+                <!--</LinearLayout>-->
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="菜谱"
+                android:textSize="18dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recipe_rcy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/id_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/colorAccent"
+                app:tabTextColor="@android:color/black"
+                android:visibility="gone"></android.support.design.widget.TabLayout>
+
+        </LinearLayout>
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+            <!--<android.support.v4.view.ViewPager-->
+                <!--android:id="@+id/id_viewPager"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"></android.support.v4.view.ViewPager>-->
+        <!--</RelativeLayout>-->
+
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

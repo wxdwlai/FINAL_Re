@@ -27,7 +27,8 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/image_shape_corner"/>
+                android:background="@drawable/image_shape_corner"
+                android:scaleType="fitXY"/>
             <TextView
                 android:id="@+id/post_head_icon"
                 android:layout_width="match_parent"
@@ -218,10 +219,24 @@
                     android:textSize="16dp"
                     android:textColor="@color/title_text" />
             </LinearLayout>
-            <GridView
+
+            <LinearLayout
+                android:id="@+id/id_logout_ll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:numColumns="4"></GridView>
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:layout_marginBottom="4dp">
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textColor="#2A313D"
+                    android:text="退出登录"
+                    android:background="@null"/>
+            </LinearLayout>
+
             <!--<View-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="0.1dp"-->

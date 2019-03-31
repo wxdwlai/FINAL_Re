@@ -30,6 +30,10 @@ public class ServiceAPI {
 
     public static String getMessage = DOMAIN +"getMessage";//用户获取消息
 
+    public static String getRecipeComment = DOMAIN + "getRecipeComment";//获取菜谱评论信息
+
+    public static String getLikeMessage = DOMAIN + "getLikeMessage";//菜谱点在消息
+
     public static String getViews = DOMAIN + "getViews";//用户获取菜谱浏览记录
 
     public static String delMessage = DOMAIN + "deleteMessage";//用户删除消息

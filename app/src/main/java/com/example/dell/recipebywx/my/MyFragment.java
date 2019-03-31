@@ -175,7 +175,7 @@ public class MyFragment extends Fragment {
         userInfoLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),UserInfoActivity.class);
+                Intent intent = new Intent(getContext(),UserActivity.class);
                 intent.putExtra("userId",localUserInfo.getUserInfo().getUid());
                 startActivity(intent);
             }

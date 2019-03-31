@@ -3,16 +3,8 @@ package com.example.dell.recipebywx.message;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,56 +17,41 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.dell.recipebywx.LoginActivity;
 import com.example.dell.recipebywx.R;
-import com.example.dell.recipebywx.home.CookingListFragment;
-import com.example.dell.recipebywx.home.RecommendFragment;
-import com.example.dell.recipebywx.model.MessageModel;
+import com.example.dell.recipebywx.model.RecipeCommentModel;
+import com.example.dell.recipebywx.model.RecipeLikeModel;
 import com.example.dell.recipebywx.model.UserInforModel;
 import com.example.dell.recipebywx.my.UserActivity;
-import com.example.dell.recipebywx.my.UserInfoActivity;
 import com.example.dell.recipebywx.search.RecipeDetailActivity;
 import com.example.dell.recipebywx.service.ServiceAPI;
 import com.example.dell.recipebywx.service.XutilsHttp;
 import com.example.dell.recipebywx.utils.DensityUtils;
 import com.example.dell.recipebywx.utils.GlideCircleTransform;
-import com.example.dell.recipebywx.utils.Local;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.Inflater;
 
-import javax.microedition.khronos.opengles.GL;
-
-public class MessageFragment extends Fragment {
+public class RecipeLikeFragment extends Fragment {
 
     private LocalUserInfo localUserInfo;
     private View view;
-    private NestedScrollView messageNsv;
     private RecyclerView recyclerView;
     private MessageAdapter adapter;
-    private List<MessageModel.DataBean> list = new ArrayList<>();
-    private LinearLayout emptyLl;
+    private List<RecipeLikeModel.DataBean> list = new ArrayList<>();
     private AlertDialog dialog;
+    private LinearLayout emptyLl;
+    public RecipeLikeFragment() {
 
-    private TabLayout messageTab;
-    private ViewPager messageVp;
-    private MessageTypePager pager;
-    private List<String> typeList = new ArrayList<>();
-    private List<Fragment> fragments = new ArrayList<>();
-    public MessageFragment() {
-        // Required empty public constructor
     }
 
-    public static MessageFragment newInstance(String param1, String param2) {
-        MessageFragment fragment = new MessageFragment();
+    public static RecipeLikeFragment newInstance(String param1, String param2) {
+        RecipeLikeFragment fragment = new RecipeLikeFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -90,68 +67,20 @@ public class MessageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_message,null);
+        view = inflater.inflate(R.layout.fragment_recipe_comment, null);
+        emptyLl = (LinearLayout)view.findViewById(R.id.message_none_ll);
         localUserInfo = new LocalUserInfo(getContext());
-//        messageNsv = (NestedScrollView)view.findViewById(R.id.messge_nsv);
-//        messageNsv.setVisibility(View.VISIBLE);
-//        messageNsv.setVisibility(View.GONE);
-//        emptyLl = (LinearLayout)view.findViewById(R.id.message_none_ll);
-//        emptyLl.setVisibility(View.GONE);
-//        emptyLl.setVisibility(View.VISIBLE);
+        getMessage();
 
-        messageTab = (TabLayout)view.findViewById(R.id.message_type_tab);
-        messageVp = (ViewPager)view.findViewById(R.id.message_vp);
-        String[] type = {"菜谱评论","消息评论","点赞"};
-        for (int i=0;i<3;i++) {
-            typeList.add(type[i]);
-        }
-        fragments.add(0,new RecipeCommentFragment());
-        fragments.add(1,new CommentFragment());
-        fragments.add(2,new RecipeLikeFragment());
-//        for (int i=0;i<3;i++) {
-//            fragments.add(new CommentFragment());
-//        }
-//        fragments.add(new CookingListFragment());
-
-        pager = new MessageTypePager(getActivity().getSupportFragmentManager(),view.getContext(),fragments,typeList);
-        messageVp.setAdapter(pager);
-        messageTab.setupWithViewPager(messageVp);
-//        getMessage();
-//        initRecycleView(view);
         return view;
     }
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         if (enter) {
-            if (!"0".equals(localUserInfo.getUserInfo().getUid())) {
-//                getUserCollects();
-//                getMessage();
-            } else {
-//                emptyLl.setVisibility(View.VISIBLE);
-                if (adapter != null) {
-                    list.clear();
-                    adapter.notifyDataSetChanged();
-                }
-                startActivityForResult(new Intent(getActivity(), LoginActivity.class), 200);
-            }
+            getMessage();
         }
         return super.onCreateAnimation(transit, enter, nextAnim);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        if (!"0".equals(localUserInfo.getUserInfo().getUid())) {
-//            getMessage();
-        } else {
-            emptyLl.setVisibility(View.VISIBLE);
-            if (adapter != null) {
-                list.clear();
-                adapter.notifyDataSetChanged();
-            }
-            startActivityForResult(new Intent(getActivity(), LoginActivity.class), 200);
-        }
-        super.onActivityCreated(savedInstanceState);
     }
 
     private void initRecycleView() {
@@ -165,30 +94,30 @@ public class MessageFragment extends Fragment {
     public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.Holder> {
 
         private Context context;
-        private List<MessageModel.DataBean> list;
+        private List<RecipeLikeModel.DataBean> list;
 
-        public MessageAdapter(Context context, List<MessageModel.DataBean> list) {
+        public MessageAdapter(Context context, List<RecipeLikeModel.DataBean> list) {
             this.context = context;
             this.list = list;
         }
 
         @Override
-        public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public MessageAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(context).inflate(R.layout.layout_message_common,parent,false);
-            Holder holder = new Holder(view);
+            MessageAdapter.Holder holder = new MessageAdapter.Holder(view);
             return holder;
         }
 
         @Override
-        public void onBindViewHolder(Holder holder, final int position) {
+        public void onBindViewHolder(MessageAdapter.Holder holder, final int position) {
             holder.position = position;
             holder.nameTv.setText(list.get(position).getUserInfo().getUserName());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
-            Long date = list.get(position).getCreateTime();
+            Long date = list.get(position).getTime();
             String d = simpleDateFormat.format(date);
             holder.timeTv.setText(d);
-            holder.contentTv.setText(list.get(position).getContext());
-            holder.messageTv.setText(list.get(position).getComment().getContext());
+            holder.contentTv.setText("赞了你");
+//            holder.contentTv.setText(list.get(position).getReid());
             Glide.with(context).load(list.get(position).getUserInfo().getImage())
                     .transform(new GlideCircleTransform(context))
                     .into(holder.iconIv);
@@ -198,7 +127,7 @@ public class MessageFragment extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(),UserActivity.class);
 //                    Intent intent = new Intent(getActivity(), UserInfoActivity.class);
-                    intent.putExtra("userId",String.valueOf(list.get(position).getPuid()));
+                    intent.putExtra("userId",String.valueOf(list.get(position).getUid()));
                     startActivity(intent);
                 }
             });
@@ -206,7 +135,7 @@ public class MessageFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), UserActivity.class);
-                    intent.putExtra("userId",String.valueOf(list.get(position).getPuid()));
+                    intent.putExtra("userId",String.valueOf(list.get(position).getUid()));
                     startActivity(intent);
                 }
             });
@@ -224,6 +153,7 @@ public class MessageFragment extends Fragment {
             private TextView timeTv;
             private TextView contentTv;
             private TextView messageTv;
+            private LinearLayout commentLl;
             public Holder(View itemView) {
                 super(itemView);
                 iconIv = (ImageView)itemView.findViewById(R.id.icon_iv);
@@ -231,69 +161,33 @@ public class MessageFragment extends Fragment {
                 timeTv = (TextView)itemView.findViewById(R.id.time_tv);
                 contentTv = (TextView)itemView.findViewById(R.id.content_tv);
                 messageTv = (TextView)itemView.findViewById(R.id.message_tv);
+                commentLl = (LinearLayout)itemView.findViewById(R.id.comment_ll);
+                commentLl.setVisibility(View.GONE);
                 final String[] items = {"查看菜谱详情","不再显示此回复"};
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog = new AlertDialog.Builder(getActivity())
-                                .setItems(items, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        if (which == 0) {
-                                            Intent intent = new Intent(getActivity(),RecipeDetailActivity.class);
-                                            intent.putExtra("reid",String.valueOf(list.get(position).getReid()));
-                                            startActivity(intent);
-                                        }
-                                        else {
-//                                            delMessage(position);
-                                        }
-                                    }
-                                }).create();
-                        dialog.show();
-//                        Intent intent = new Intent(getActivity(),RecipeDetailActivity.class);
-//                        intent.putExtra("reid",String.valueOf(list.get(position).getReid()));
-//                        intent.putExtra("userName",list.get(position).getUserInfo().getUserName());
-//                        startActivity(intent);
+                        Intent intent = new Intent(getActivity(),RecipeDetailActivity.class);
+                        intent.putExtra("reid",String.valueOf(list.get(position).getReid()));
+                        startActivity(intent);
+//                        dialog = new AlertDialog.Builder(getActivity())
+//                                .setItems(items, new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        if (which == 0) {
+//                                            Intent intent = new Intent(getActivity(),RecipeDetailActivity.class);
+//                                            intent.putExtra("reid",String.valueOf(list.get(position).getReid()));
+//                                            startActivity(intent);
+//                                        }
+//                                        else {
+////                                            delMessage(position);
+//                                        }
+//                                    }
+//                                }).create();
+//                        dialog.show();
                     }
                 });
-//                itemView.setOnLongClickListener(new View.OnLongClickListener() {
-//                    @Override
-//                    public boolean onLongClick(View v) {
-//                        return false;
-//                    }
-//                });
             }
-        }
-    }
-
-    /**
-     * 消息分类展示
-     */
-    public class MessageTypePager extends FragmentPagerAdapter {
-
-        private Context context;
-        private List<Fragment> fragments;
-        private List<String> styles;
-
-        public MessageTypePager(FragmentManager fm,Context context,List<Fragment> fragments,List<String> styles) {
-            super(fm);
-            this.context = context;
-            this.fragments = fragments;
-            this.styles = styles;
-        }
-        @Override
-        public Fragment getItem(int position) {
-            return fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return styles.get(position);
         }
     }
 
@@ -306,21 +200,22 @@ public class MessageFragment extends Fragment {
         if (!"0".equals(localUserInfo.getUserInfo().getToken())) {
             map.put("x-auth-token",localUserInfo.getUserInfo().getToken());
         }
-        XutilsHttp.getInstance().get(ServiceAPI.getMessage, map, new XutilsHttp.XCallBack() {
+        XutilsHttp.getInstance().get(ServiceAPI.getLikeMessage, map, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
                 if (result != null) {
-                    MessageModel messageModel = new Gson().fromJson(result,MessageModel.class);
+                    RecipeLikeModel messageModel = new Gson().fromJson(result,RecipeLikeModel.class);
                     if (messageModel.isSuccess()) {
                         list.clear();
                         list.addAll(messageModel.getData());
                         if (list.size() != 0) {
-                            if (recyclerView == null) {
+                            initRecycleView();
+//                            if (recyclerView == null) {
 //                                initRecycleView();
-                            }
-                            else {
-                                adapter.notifyDataSetChanged();
-                            }
+//                            }
+//                            else {
+//                                adapter.notifyDataSetChanged();
+//                            }
                         }
                         else {
                             recyclerView.setVisibility(View.GONE);
@@ -344,7 +239,7 @@ public class MessageFragment extends Fragment {
     public void delMessage(final int position) {
         Map<String, String> map = new HashMap<>();
         map.put("uid",localUserInfo.getUserInfo().getUid());
-        map.put("mid",String.valueOf(list.get(position).getMid()));
+        map.put("mid",String.valueOf(list.get(position)));
         XutilsHttp.getInstance().delete(ServiceAPI.delMessage, map, null, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {
@@ -363,4 +258,5 @@ public class MessageFragment extends Fragment {
             }
         });
     }
+
 }

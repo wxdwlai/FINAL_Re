@@ -76,6 +76,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private LinearLayout userTasteLl;
     private LinearLayout userLikeLl;
     private TextView userLikeTv;
+    private LinearLayout logoutLl;
     private TextView saveUserInfoTv;
     private AlertDialog sexDialog;//性别选择对话框
     private TextView updateTv;
@@ -94,8 +95,8 @@ public class UserInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_information);
-        userId = getIntent().getStringExtra("userId");
         localUserInfo = new LocalUserInfo(getApplicationContext());
+        userId = localUserInfo.getUserInfo().getUid();//getIntent().getStringExtra("userId");
         instance = this;
         this.changeStatusBarTextColor(true);
         initView();
@@ -125,6 +126,7 @@ public class UserInfoActivity extends AppCompatActivity {
         userTasteLl = (LinearLayout)findViewById(R.id.id_taste_ll);
         userLikeLl = (LinearLayout)findViewById(R.id.id_like_ll);
         userLikeTv = (TextView)findViewById(R.id.id_like_tv);
+        logoutLl = (LinearLayout)findViewById(R.id.id_logout_ll);
         saveUserInfoTv = (TextView)findViewById(R.id.save_user_info_tv);
         updateTv = (TextView)findViewById(R.id.save_user_info_tv);
         getUser(userId);
@@ -222,6 +224,12 @@ public class UserInfoActivity extends AppCompatActivity {
             updateTv.setVisibility(View.GONE);
             userTasteLl.setVisibility(View.GONE);//不对其他用户显示口味偏好属性
         }
+        logoutLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postLogout();
+            }
+        });
     }
 
     private void changeStatusBarTextColor(boolean isBlack) {
@@ -432,7 +440,7 @@ public class UserInfoActivity extends AppCompatActivity {
      */
     public void getUser(String id) {
         Map<String, String> map = new HashMap<>();
-        map.put("uid",id);
+        map.put("uid",localUserInfo.getUserInfo().getUid());
         XutilsHttp.getInstance().get(ServiceAPI.GetUser, map, new XutilsHttp.XCallBack() {
             @Override
             public void onResponse(String result) {

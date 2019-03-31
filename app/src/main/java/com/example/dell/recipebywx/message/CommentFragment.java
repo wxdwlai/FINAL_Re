@@ -3,78 +3,57 @@ package com.example.dell.recipebywx.message;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.dell.recipebywx.LoginActivity;
 import com.example.dell.recipebywx.R;
-import com.example.dell.recipebywx.home.CookingListFragment;
-import com.example.dell.recipebywx.home.RecommendFragment;
 import com.example.dell.recipebywx.model.MessageModel;
 import com.example.dell.recipebywx.model.UserInforModel;
 import com.example.dell.recipebywx.my.UserActivity;
-import com.example.dell.recipebywx.my.UserInfoActivity;
 import com.example.dell.recipebywx.search.RecipeDetailActivity;
 import com.example.dell.recipebywx.service.ServiceAPI;
 import com.example.dell.recipebywx.service.XutilsHttp;
 import com.example.dell.recipebywx.utils.DensityUtils;
 import com.example.dell.recipebywx.utils.GlideCircleTransform;
-import com.example.dell.recipebywx.utils.Local;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.Inflater;
 
-import javax.microedition.khronos.opengles.GL;
-
-public class MessageFragment extends Fragment {
+public class CommentFragment extends Fragment {
 
     private LocalUserInfo localUserInfo;
     private View view;
-    private NestedScrollView messageNsv;
     private RecyclerView recyclerView;
     private MessageAdapter adapter;
     private List<MessageModel.DataBean> list = new ArrayList<>();
-    private LinearLayout emptyLl;
     private AlertDialog dialog;
+    private LinearLayout emptyLl;
 
-    private TabLayout messageTab;
-    private ViewPager messageVp;
-    private MessageTypePager pager;
-    private List<String> typeList = new ArrayList<>();
-    private List<Fragment> fragments = new ArrayList<>();
-    public MessageFragment() {
-        // Required empty public constructor
+    public CommentFragment() {
+
     }
 
-    public static MessageFragment newInstance(String param1, String param2) {
-        MessageFragment fragment = new MessageFragment();
+    public static CommentFragment newInstance(String param1, String param2) {
+        CommentFragment fragment = new CommentFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -84,74 +63,19 @@ public class MessageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_message,null);
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_comment,null);
         localUserInfo = new LocalUserInfo(getContext());
-//        messageNsv = (NestedScrollView)view.findViewById(R.id.messge_nsv);
-//        messageNsv.setVisibility(View.VISIBLE);
-//        messageNsv.setVisibility(View.GONE);
-//        emptyLl = (LinearLayout)view.findViewById(R.id.message_none_ll);
-//        emptyLl.setVisibility(View.GONE);
-//        emptyLl.setVisibility(View.VISIBLE);
-
-        messageTab = (TabLayout)view.findViewById(R.id.message_type_tab);
-        messageVp = (ViewPager)view.findViewById(R.id.message_vp);
-        String[] type = {"菜谱评论","消息评论","点赞"};
-        for (int i=0;i<3;i++) {
-            typeList.add(type[i]);
-        }
-        fragments.add(0,new RecipeCommentFragment());
-        fragments.add(1,new CommentFragment());
-        fragments.add(2,new RecipeLikeFragment());
-//        for (int i=0;i<3;i++) {
-//            fragments.add(new CommentFragment());
-//        }
-//        fragments.add(new CookingListFragment());
-
-        pager = new MessageTypePager(getActivity().getSupportFragmentManager(),view.getContext(),fragments,typeList);
-        messageVp.setAdapter(pager);
-        messageTab.setupWithViewPager(messageVp);
-//        getMessage();
-//        initRecycleView(view);
+        emptyLl = (LinearLayout)view.findViewById(R.id.message_none_ll);
+        getMessage();
         return view;
-    }
-
-    @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        if (enter) {
-            if (!"0".equals(localUserInfo.getUserInfo().getUid())) {
-//                getUserCollects();
-//                getMessage();
-            } else {
-//                emptyLl.setVisibility(View.VISIBLE);
-                if (adapter != null) {
-                    list.clear();
-                    adapter.notifyDataSetChanged();
-                }
-                startActivityForResult(new Intent(getActivity(), LoginActivity.class), 200);
-            }
-        }
-        return super.onCreateAnimation(transit, enter, nextAnim);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        if (!"0".equals(localUserInfo.getUserInfo().getUid())) {
-//            getMessage();
-        } else {
-            emptyLl.setVisibility(View.VISIBLE);
-            if (adapter != null) {
-                list.clear();
-                adapter.notifyDataSetChanged();
-            }
-            startActivityForResult(new Intent(getActivity(), LoginActivity.class), 200);
-        }
-        super.onActivityCreated(savedInstanceState);
     }
 
     private void initRecycleView() {
@@ -173,14 +97,14 @@ public class MessageFragment extends Fragment {
         }
 
         @Override
-        public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public MessageAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(context).inflate(R.layout.layout_message_common,parent,false);
-            Holder holder = new Holder(view);
+            MessageAdapter.Holder holder = new MessageAdapter.Holder(view);
             return holder;
         }
 
         @Override
-        public void onBindViewHolder(Holder holder, final int position) {
+        public void onBindViewHolder(MessageAdapter.Holder holder, final int position) {
             holder.position = position;
             holder.nameTv.setText(list.get(position).getUserInfo().getUserName());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
@@ -245,55 +169,14 @@ public class MessageFragment extends Fragment {
                                             startActivity(intent);
                                         }
                                         else {
-//                                            delMessage(position);
+                                            delMessage(position);
                                         }
                                     }
                                 }).create();
                         dialog.show();
-//                        Intent intent = new Intent(getActivity(),RecipeDetailActivity.class);
-//                        intent.putExtra("reid",String.valueOf(list.get(position).getReid()));
-//                        intent.putExtra("userName",list.get(position).getUserInfo().getUserName());
-//                        startActivity(intent);
                     }
                 });
-//                itemView.setOnLongClickListener(new View.OnLongClickListener() {
-//                    @Override
-//                    public boolean onLongClick(View v) {
-//                        return false;
-//                    }
-//                });
             }
-        }
-    }
-
-    /**
-     * 消息分类展示
-     */
-    public class MessageTypePager extends FragmentPagerAdapter {
-
-        private Context context;
-        private List<Fragment> fragments;
-        private List<String> styles;
-
-        public MessageTypePager(FragmentManager fm,Context context,List<Fragment> fragments,List<String> styles) {
-            super(fm);
-            this.context = context;
-            this.fragments = fragments;
-            this.styles = styles;
-        }
-        @Override
-        public Fragment getItem(int position) {
-            return fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return styles.get(position);
         }
     }
 
@@ -316,7 +199,7 @@ public class MessageFragment extends Fragment {
                         list.addAll(messageModel.getData());
                         if (list.size() != 0) {
                             if (recyclerView == null) {
-//                                initRecycleView();
+                                initRecycleView();
                             }
                             else {
                                 adapter.notifyDataSetChanged();

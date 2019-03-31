@@ -30,6 +30,7 @@ import com.example.dell.recipebywx.model.CollectResponseModel;
 import com.example.dell.recipebywx.model.CommonModel;
 import com.example.dell.recipebywx.model.RecipeDetailModel;
 import com.example.dell.recipebywx.model.RecipeModel;
+import com.example.dell.recipebywx.my.UserActivity;
 import com.example.dell.recipebywx.my.UserInfoActivity;
 import com.example.dell.recipebywx.service.ServiceAPI;
 import com.example.dell.recipebywx.service.XutilsHttp;
@@ -181,7 +182,7 @@ public class RecipeDetailActivity extends AppCompatActivity{
         userNameTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RecipeDetailActivity.this, UserInfoActivity.class);
+                Intent intent = new Intent(RecipeDetailActivity.this, UserActivity.class);
                 intent.putExtra("userId",String.valueOf(recipeDetailModel.getData().getUid()));
                 startActivity(intent);
             }
@@ -189,7 +190,7 @@ public class RecipeDetailActivity extends AppCompatActivity{
         userIconIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RecipeDetailActivity.this, UserInfoActivity.class);
+                Intent intent = new Intent(RecipeDetailActivity.this, UserActivity.class);
                 intent.putExtra("userId",String.valueOf(recipeDetailModel.getData().getUid()));
                 startActivity(intent);
             }
