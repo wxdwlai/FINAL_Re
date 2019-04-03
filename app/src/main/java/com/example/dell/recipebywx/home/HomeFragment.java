@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.example.dell.recipebywx.LoginActivity;
 import com.example.dell.recipebywx.R;
+import com.example.dell.recipebywx.my.PostRecipeActivity;
 import com.example.dell.recipebywx.search.SearchRecipeActivity;
 import com.example.dell.recipebywx.utils.Local;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
@@ -29,6 +30,8 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private LocalUserInfo localUserInfo;
+
+    private LinearLayout addRecipeLl;
 
     private TabLayout cookingStyleTab;
     private ViewPager cookingView;
@@ -59,13 +62,15 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,null);
         localUserInfo = new LocalUserInfo(getContext());
+        addRecipeLl = (LinearLayout)view.findViewById(R.id.toolbar_left_button);
         searchLl = view.findViewById(R.id.toolbar_center_serch);
         searchIv = view.findViewById(R.id.toolbar_search_iv);
         searchEtv = view.findViewById(R.id.toolbar_search_etv);
 //        searchEtv.clearFocus();
         cookingStyleTab = (TabLayout)view.findViewById(R.id.style_of_cooking_tab);
         cookingView = (ViewPager)view.findViewById(R.id.style_of_cooking_view);
-        menuLl = (LinearLayout)view.findViewById(R.id.toolbar_left_button);
+//        menuLl = (LinearLayout)view.findViewById(R.id.toolbar_left_button);
+
         String[] styles = {"推荐","热菜","家常菜","早餐","午餐","下午茶","晚餐","儿童","老人","烘焙","川菜","甜品",};
         for (int i=0;i<styles.length;i++) {
             if (i==0) {
@@ -106,10 +111,17 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        menuLl.setOnClickListener(new View.OnClickListener() {
+//        menuLl.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(),CategoryActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+        addRecipeLl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),CategoryActivity.class);
+                Intent intent = new Intent(getContext(), PostRecipeActivity.class);
                 startActivity(intent);
             }
         });

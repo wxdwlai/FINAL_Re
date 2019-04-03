@@ -144,7 +144,7 @@ public class MessageFragment extends Fragment {
         if (!"0".equals(localUserInfo.getUserInfo().getUid())) {
 //            getMessage();
         } else {
-            emptyLl.setVisibility(View.VISIBLE);
+//            emptyLl.setVisibility(View.VISIBLE);
             if (adapter != null) {
                 list.clear();
                 adapter.notifyDataSetChanged();
@@ -324,7 +324,7 @@ public class MessageFragment extends Fragment {
                         }
                         else {
                             recyclerView.setVisibility(View.GONE);
-                            emptyLl.setVisibility(View.VISIBLE);
+//                            emptyLl.setVisibility(View.VISIBLE);
                         }
 
                     }

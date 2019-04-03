@@ -30,6 +30,7 @@ import com.example.dell.recipebywx.service.ServiceAPI;
 import com.example.dell.recipebywx.service.XutilsHttp;
 import com.example.dell.recipebywx.utils.DensityUtils;
 import com.example.dell.recipebywx.utils.GlideCircleTransform;
+import com.example.dell.recipebywx.utils.GlideRoundTransform;
 import com.example.dell.recipebywx.utils.Local;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
@@ -40,6 +41,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.microedition.khronos.opengles.GL;
 
 public class RecipeCommentFragment extends Fragment {
 
@@ -108,7 +111,7 @@ public class RecipeCommentFragment extends Fragment {
 
         @Override
         public MessageAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(context).inflate(R.layout.layout_message_common,parent,false);
+            View view = LayoutInflater.from(context).inflate(R.layout.layout_message_like,parent,false);
             MessageAdapter.Holder holder = new MessageAdapter.Holder(view);
             return holder;
         }
@@ -122,10 +125,13 @@ public class RecipeCommentFragment extends Fragment {
             String d = simpleDateFormat.format(date);
             holder.timeTv.setText(d);
             holder.contentTv.setText(list.get(position).getContext());
+            holder.recipeTv.setText(list.get(position).getRecipe().getTitle());
             Glide.with(context).load(list.get(position).getUserInfo().getImage())
                     .transform(new GlideCircleTransform(context))
                     .into(holder.iconIv);
-
+            Glide.with(context).load(list.get(position).getRecipe().getImage())
+                    .transform(new GlideRoundTransform(context,2))
+                    .into(holder.recipeIv);
             holder.iconIv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -157,7 +163,9 @@ public class RecipeCommentFragment extends Fragment {
             private TextView timeTv;
             private TextView contentTv;
             private TextView messageTv;
-            private LinearLayout commentLl;
+//            private LinearLayout commentLl;
+            private ImageView recipeIv;
+            private TextView recipeTv;
             public Holder(View itemView) {
                 super(itemView);
                 iconIv = (ImageView)itemView.findViewById(R.id.icon_iv);
@@ -165,8 +173,10 @@ public class RecipeCommentFragment extends Fragment {
                 timeTv = (TextView)itemView.findViewById(R.id.time_tv);
                 contentTv = (TextView)itemView.findViewById(R.id.content_tv);
                 messageTv = (TextView)itemView.findViewById(R.id.message_tv);
-                commentLl = (LinearLayout)itemView.findViewById(R.id.comment_ll);
-                commentLl.setVisibility(View.GONE);
+//                commentLl = (LinearLayout)itemView.findViewById(R.id.comment_ll);
+//                commentLl.setVisibility(View.GONE);
+                recipeIv = (ImageView)itemView.findViewById(R.id.recipe_image_iv);
+                recipeTv = (TextView)itemView.findViewById(R.id.recipe_name_tv);
                 final String[] items = {"查看菜谱详情","不再显示此回复"};
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

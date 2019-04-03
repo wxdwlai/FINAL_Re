@@ -22,6 +22,7 @@ import com.example.dell.recipebywx.search.RecipeDetailActivity;
 import com.example.dell.recipebywx.service.ServiceAPI;
 import com.example.dell.recipebywx.service.XutilsHttp;
 import com.example.dell.recipebywx.utils.GlideCircleTransform;
+import com.example.dell.recipebywx.utils.GlideRoundTransform;
 import com.example.dell.recipebywx.utils.Helper;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
@@ -111,7 +112,10 @@ public class UserActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(Holder holder, int position) {
             holder.position = position;
-            XutilsHttp.getInstance().bindCircularImage3(holder.recipeIv,list.get(position).getImage(),0);
+//            XutilsHttp.getInstance().bindCircularImage3(holder.recipeIv,list.get(position).getImage(),5);
+            Glide.with(context).load(list.get(position).getImage())
+                    .transform(new CenterCrop(context),new GlideRoundTransform(context,5))
+                    .into(holder.recipeIv);
             holder.recipeTv.setText(list.get(position).getTitle());
         }
 

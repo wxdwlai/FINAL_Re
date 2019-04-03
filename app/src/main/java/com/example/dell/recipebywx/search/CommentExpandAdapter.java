@@ -28,6 +28,7 @@ import com.example.dell.recipebywx.model.CollectResponseModel;
 import com.example.dell.recipebywx.model.CommonModel;
 import com.example.dell.recipebywx.model.RecipeDetailModel;
 import com.example.dell.recipebywx.model.UserInforModel;
+import com.example.dell.recipebywx.my.UserActivity;
 import com.example.dell.recipebywx.my.UserInfoActivity;
 import com.example.dell.recipebywx.service.ServiceAPI;
 import com.example.dell.recipebywx.service.XutilsHttp;
@@ -299,7 +300,7 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
         groupHolder.logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,UserInfoActivity.class);
+                Intent intent = new Intent(context,UserActivity.class);
                 intent.putExtra("userId",String.valueOf(commentBeanList.get(groupPosition).getPuid()));
                 context.startActivity(intent);
             }
