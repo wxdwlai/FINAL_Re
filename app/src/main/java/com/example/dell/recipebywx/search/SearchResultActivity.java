@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.dell.recipebywx.R;
 import com.example.dell.recipebywx.home.CookingListFragment;
 import com.example.dell.recipebywx.model.CookingModel;
@@ -25,6 +26,7 @@ import com.example.dell.recipebywx.model.SearchResultModel;
 import com.example.dell.recipebywx.service.ServiceAPI;
 import com.example.dell.recipebywx.service.XutilsHttp;
 import com.example.dell.recipebywx.utils.DensityUtils;
+import com.example.dell.recipebywx.utils.GlideCircleTransform;
 import com.example.dell.recipebywx.utils.Helper;
 import com.example.dell.recipebywx.utils.Local;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
@@ -165,13 +167,13 @@ public class SearchResultActivity extends AppCompatActivity {
         public void onBindViewHolder(Holer holder, final int position) {
             holder.position = position;
             holder.cookingName.setText(list.get(position).getTitle());
-            holder.cookingMaterias.setText(list.get(position).getIngs());
+            if (list.get(position).getTags() != null && list.get(position).getTags().length() !=0) {
+                holder.cookingMaterias.setText(list.get(position).getTags().replaceAll("\n"," "));
+            }
             if (list != null) {
-                if (list.get(position).getTags() != null && list.get(position).getTags().length() != 0) {
-                    holder.userName.setText(list.get(position).getUserInfo().getUserName());
-//                    holder.userName.setText(list.get(position).getTags().replace("\n"," "));
-//                    holder.userName.setText();
-                }
+//                if (list.get(position).getTags() != null && list.get(position).getTags().length() != 0) {
+//                    holder.userName.setText(list.get(position).getUserInfo().getUserName());
+//                }
 //                List<SearchResultModel.DataBean.RecipeTypesBean> typesBeanList = new ArrayList<>();
 //                typesBeanList = list.get(position).getRecipeTypes();
 //                if (typesBeanList.size() != 0) {
@@ -184,6 +186,11 @@ public class SearchResultActivity extends AppCompatActivity {
 
 //            holder.cookingScore.setText(String.valueOf(list.get(position).getScore()));
 //            holder.cookingNumber.setText(list.get(position).getTitle());
+
+                holder.userName.setText(list.get(position).getUserInfo().getUserName());
+                Glide.with(context).load(list.get(position).getUserInfo().getImage())
+                        .transform(new GlideCircleTransform(context))
+                        .into(holder.creatorIv);
                 XutilsHttp.getInstance().bindCircularImage3(holder.cookingImage,list.get(position).getImage().toString(),10);
             }
         }
@@ -201,6 +208,7 @@ public class SearchResultActivity extends AppCompatActivity {
             private TextView cookingScore;
             private TextView cookingNumber;
             private int position;
+            private ImageView creatorIv;
 
             public Holer(View itemView) {
                 super(itemView);
@@ -210,7 +218,7 @@ public class SearchResultActivity extends AppCompatActivity {
                 userName = (TextView) itemView.findViewById(R.id.cooking_user_name_tv);
                 cookingScore = (TextView) itemView.findViewById(R.id.cooking_score_tv);
                 cookingNumber = (TextView) itemView.findViewById(R.id.cooking_num_tv);
-
+                creatorIv = (ImageView)itemView.findViewById(R.id.creator_iv);
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

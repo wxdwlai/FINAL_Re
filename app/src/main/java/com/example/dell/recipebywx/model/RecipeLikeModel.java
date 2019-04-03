@@ -13,7 +13,7 @@ public class RecipeLikeModel {
      * errorCode : 0
      * message : 查询成功
      * success : true
-     * data : [{"reid":1,"uid":2,"type":true,"userInfo":{"uid":2,"userName":"wx","age":"21","sex":1,"intro":"白夜","location":"上海","image":"http://192.168.137.1:8080/image/002.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImV4cCI6MTU1MzU5OTIxMSwiaWF0IjoxNTUzNTEyODExfQ.7lhf08pdNMn7CeKcpfn7VDLkorj7LuhPnJmJ0LWUUbM","password":"002"},"recipe":{"reid":1,"uid":1,"title":"柠檬可乐鸡翅","score":8,"ings":"鸡中翅 10个\n可乐 半瓶\n柠檬 1个\n葱 适量\n姜 适量\n酱油 适量\n料酒 适量\n盐 适量\n牙签 适量\n植物油 适量\n","image":"http://192.168.137.1:8080/image/1.jpg","visiteds":110,"collects":1,"likes":0,"tags":"热菜 \n鲁菜 \n老人 \n宵夜 \n朋友聚餐 \n冬季食谱 \n","intro":""},"time":1553048114000},{"reid":1,"uid":4,"type":true,"userInfo":{"uid":4,"userName":"3","age":"35","sex":2,"intro":"我就是我，颜色不一样的烟火","location":"上海","image":"http://192.168.137.1:8080/image/003.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjQsImV4cCI6MTU1NDA4NjM3MCwiaWF0IjoxNTUzOTk5OTcwfQ.g5H9-nN97dGPkUG2g4qsDEo45Eqql-kti9yzbgu7mN8","password":"003"},"recipe":{"reid":1,"uid":1,"title":"柠檬可乐鸡翅","score":8,"ings":"鸡中翅 10个\n可乐 半瓶\n柠檬 1个\n葱 适量\n姜 适量\n酱油 适量\n料酒 适量\n盐 适量\n牙签 适量\n植物油 适量\n","image":"http://192.168.137.1:8080/image/1.jpg","visiteds":110,"collects":1,"likes":0,"tags":"热菜 \n鲁菜 \n老人 \n宵夜 \n朋友聚餐 \n冬季食谱 \n","intro":""},"time":1554010969000},{"reid":2,"uid":2,"type":true,"userInfo":{"uid":2,"userName":"wx","age":"21","sex":1,"intro":"白夜","location":"上海","image":"http://192.168.137.1:8080/image/002.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImV4cCI6MTU1MzU5OTIxMSwiaWF0IjoxNTUzNTEyODExfQ.7lhf08pdNMn7CeKcpfn7VDLkorj7LuhPnJmJ0LWUUbM","password":"002"},"recipe":{"reid":2,"uid":1,"title":"牛奶绣球面包","score":9,"ings":"金像高筋面粉 190克\n中筋面粉 30克\n牛奶 110克\n蛋清 1个\n白糖 30克\n黄油 25克\n鲜酵母 8克\n盐 1/4茶匙\n鲜蛋黄 1个\n熟植物油 适量\n","image":"http://192.168.137.1:8080/image/2.jpg","visiteds":79,"collects":0,"likes":0,"tags":"烘焙 \n儿童 \n面包 \n下午茶 \n快餐 \n","intro":""},"time":1552896312000},{"reid":2,"uid":4,"type":true,"userInfo":{"uid":4,"userName":"3","age":"35","sex":2,"intro":"我就是我，颜色不一样的烟火","location":"上海","image":"http://192.168.137.1:8080/image/003.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjQsImV4cCI6MTU1NDA4NjM3MCwiaWF0IjoxNTUzOTk5OTcwfQ.g5H9-nN97dGPkUG2g4qsDEo45Eqql-kti9yzbgu7mN8","password":"003"},"recipe":{"reid":2,"uid":1,"title":"牛奶绣球面包","score":9,"ings":"金像高筋面粉 190克\n中筋面粉 30克\n牛奶 110克\n蛋清 1个\n白糖 30克\n黄油 25克\n鲜酵母 8克\n盐 1/4茶匙\n鲜蛋黄 1个\n熟植物油 适量\n","image":"http://192.168.137.1:8080/image/2.jpg","visiteds":79,"collects":0,"likes":0,"tags":"烘焙 \n儿童 \n面包 \n下午茶 \n快餐 \n","intro":""},"time":1552890697000}]
+     * data : [{"reid":1,"uid":1,"type":true,"userInfo":{"uid":1,"userName":"apple","age":"23","sex":2,"intro":"白天不懂夜的黑","location":"成都","image":"http://192.168.137.1:8080/image/001.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImV4cCI6MTU1NDIwOTA1MiwiaWF0IjoxNTU0MTIyNjUyfQ.pcADmsjv7mq7Wt-PSqCKTuv7MT02-CA4PiJpbl2rt5w","password":"001"},"recipe":{"reid":1,"uid":1,"title":"柠檬可乐鸡翅","score":8,"ings":"鸡中翅 10个\n可乐 半瓶\n柠檬 1个\n葱 适量\n姜 适量\n酱油 适量\n料酒 适量\n盐 适量\n牙签 适量\n植物油 适量\n","image":"http://192.168.137.1:8080/image/1.jpg","visiteds":130,"collects":1,"likes":0,"tags":"热菜 \n鲁菜 \n老人 \n宵夜 \n朋友聚餐 \n冬季食谱 \n","intro":"","userInfo":{"uid":1,"userName":"apple","age":"23","sex":2,"intro":"白天不懂夜的黑","location":"成都","image":"http://192.168.137.1:8080/image/001.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImV4cCI6MTU1NDIwOTA1MiwiaWF0IjoxNTU0MTIyNjUyfQ.pcADmsjv7mq7Wt-PSqCKTuv7MT02-CA4PiJpbl2rt5w","password":"001"}},"time":1554123056000},{"reid":1,"uid":2,"type":true,"userInfo":{"uid":2,"userName":"wx","age":"21","sex":1,"intro":"白夜","location":"上海","image":"http://192.168.137.1:8080/image/002.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImV4cCI6MTU1MzU5OTIxMSwiaWF0IjoxNTUzNTEyODExfQ.7lhf08pdNMn7CeKcpfn7VDLkorj7LuhPnJmJ0LWUUbM","password":"002"},"recipe":{"reid":1,"uid":1,"title":"柠檬可乐鸡翅","score":8,"ings":"鸡中翅 10个\n可乐 半瓶\n柠檬 1个\n葱 适量\n姜 适量\n酱油 适量\n料酒 适量\n盐 适量\n牙签 适量\n植物油 适量\n","image":"http://192.168.137.1:8080/image/1.jpg","visiteds":130,"collects":1,"likes":0,"tags":"热菜 \n鲁菜 \n老人 \n宵夜 \n朋友聚餐 \n冬季食谱 \n","intro":"","userInfo":{"uid":1,"userName":"apple","age":"23","sex":2,"intro":"白天不懂夜的黑","location":"成都","image":"http://192.168.137.1:8080/image/001.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImV4cCI6MTU1NDIwOTA1MiwiaWF0IjoxNTU0MTIyNjUyfQ.pcADmsjv7mq7Wt-PSqCKTuv7MT02-CA4PiJpbl2rt5w","password":"001"}},"time":1553048114000},{"reid":1,"uid":4,"type":true,"userInfo":{"uid":4,"userName":"3","age":"35","sex":2,"intro":"我就是我，颜色不一样的烟火","location":"上海","image":"http://192.168.137.1:8080/image/003.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjQsImV4cCI6MTU1NDA4NjM3MCwiaWF0IjoxNTUzOTk5OTcwfQ.g5H9-nN97dGPkUG2g4qsDEo45Eqql-kti9yzbgu7mN8","password":"003"},"recipe":{"reid":1,"uid":1,"title":"柠檬可乐鸡翅","score":8,"ings":"鸡中翅 10个\n可乐 半瓶\n柠檬 1个\n葱 适量\n姜 适量\n酱油 适量\n料酒 适量\n盐 适量\n牙签 适量\n植物油 适量\n","image":"http://192.168.137.1:8080/image/1.jpg","visiteds":130,"collects":1,"likes":0,"tags":"热菜 \n鲁菜 \n老人 \n宵夜 \n朋友聚餐 \n冬季食谱 \n","intro":"","userInfo":{"uid":1,"userName":"apple","age":"23","sex":2,"intro":"白天不懂夜的黑","location":"成都","image":"http://192.168.137.1:8080/image/001.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImV4cCI6MTU1NDIwOTA1MiwiaWF0IjoxNTU0MTIyNjUyfQ.pcADmsjv7mq7Wt-PSqCKTuv7MT02-CA4PiJpbl2rt5w","password":"001"}},"time":1554010969000},{"reid":2,"uid":2,"type":true,"userInfo":{"uid":2,"userName":"wx","age":"21","sex":1,"intro":"白夜","location":"上海","image":"http://192.168.137.1:8080/image/002.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImV4cCI6MTU1MzU5OTIxMSwiaWF0IjoxNTUzNTEyODExfQ.7lhf08pdNMn7CeKcpfn7VDLkorj7LuhPnJmJ0LWUUbM","password":"002"},"recipe":{"reid":2,"uid":1,"title":"牛奶绣球面包","score":9,"ings":"金像高筋面粉 190克\n中筋面粉 30克\n牛奶 110克\n蛋清 1个\n白糖 30克\n黄油 25克\n鲜酵母 8克\n盐 1/4茶匙\n鲜蛋黄 1个\n熟植物油 适量\n","image":"http://192.168.137.1:8080/image/2.jpg","visiteds":81,"collects":0,"likes":0,"tags":"烘焙 \n儿童 \n面包 \n下午茶 \n快餐 \n","intro":"","userInfo":{"uid":1,"userName":"apple","age":"23","sex":2,"intro":"白天不懂夜的黑","location":"成都","image":"http://192.168.137.1:8080/image/001.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImV4cCI6MTU1NDIwOTA1MiwiaWF0IjoxNTU0MTIyNjUyfQ.pcADmsjv7mq7Wt-PSqCKTuv7MT02-CA4PiJpbl2rt5w","password":"001"}},"time":1552896312000},{"reid":2,"uid":4,"type":true,"userInfo":{"uid":4,"userName":"3","age":"35","sex":2,"intro":"我就是我，颜色不一样的烟火","location":"上海","image":"http://192.168.137.1:8080/image/003.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjQsImV4cCI6MTU1NDA4NjM3MCwiaWF0IjoxNTUzOTk5OTcwfQ.g5H9-nN97dGPkUG2g4qsDEo45Eqql-kti9yzbgu7mN8","password":"003"},"recipe":{"reid":2,"uid":1,"title":"牛奶绣球面包","score":9,"ings":"金像高筋面粉 190克\n中筋面粉 30克\n牛奶 110克\n蛋清 1个\n白糖 30克\n黄油 25克\n鲜酵母 8克\n盐 1/4茶匙\n鲜蛋黄 1个\n熟植物油 适量\n","image":"http://192.168.137.1:8080/image/2.jpg","visiteds":81,"collects":0,"likes":0,"tags":"烘焙 \n儿童 \n面包 \n下午茶 \n快餐 \n","intro":"","userInfo":{"uid":1,"userName":"apple","age":"23","sex":2,"intro":"白天不懂夜的黑","location":"成都","image":"http://192.168.137.1:8080/image/001.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImV4cCI6MTU1NDIwOTA1MiwiaWF0IjoxNTU0MTIyNjUyfQ.pcADmsjv7mq7Wt-PSqCKTuv7MT02-CA4PiJpbl2rt5w","password":"001"}},"time":1552890697000}]
      */
 
     private int errorCode;
@@ -56,11 +56,11 @@ public class RecipeLikeModel {
     public static class DataBean {
         /**
          * reid : 1
-         * uid : 2
+         * uid : 1
          * type : true
-         * userInfo : {"uid":2,"userName":"wx","age":"21","sex":1,"intro":"白夜","location":"上海","image":"http://192.168.137.1:8080/image/002.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImV4cCI6MTU1MzU5OTIxMSwiaWF0IjoxNTUzNTEyODExfQ.7lhf08pdNMn7CeKcpfn7VDLkorj7LuhPnJmJ0LWUUbM","password":"002"}
-         * recipe : {"reid":1,"uid":1,"title":"柠檬可乐鸡翅","score":8,"ings":"鸡中翅 10个\n可乐 半瓶\n柠檬 1个\n葱 适量\n姜 适量\n酱油 适量\n料酒 适量\n盐 适量\n牙签 适量\n植物油 适量\n","image":"http://192.168.137.1:8080/image/1.jpg","visiteds":110,"collects":1,"likes":0,"tags":"热菜 \n鲁菜 \n老人 \n宵夜 \n朋友聚餐 \n冬季食谱 \n","intro":""}
-         * time : 1553048114000
+         * userInfo : {"uid":1,"userName":"apple","age":"23","sex":2,"intro":"白天不懂夜的黑","location":"成都","image":"http://192.168.137.1:8080/image/001.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImV4cCI6MTU1NDIwOTA1MiwiaWF0IjoxNTU0MTIyNjUyfQ.pcADmsjv7mq7Wt-PSqCKTuv7MT02-CA4PiJpbl2rt5w","password":"001"}
+         * recipe : {"reid":1,"uid":1,"title":"柠檬可乐鸡翅","score":8,"ings":"鸡中翅 10个\n可乐 半瓶\n柠檬 1个\n葱 适量\n姜 适量\n酱油 适量\n料酒 适量\n盐 适量\n牙签 适量\n植物油 适量\n","image":"http://192.168.137.1:8080/image/1.jpg","visiteds":130,"collects":1,"likes":0,"tags":"热菜 \n鲁菜 \n老人 \n宵夜 \n朋友聚餐 \n冬季食谱 \n","intro":"","userInfo":{"uid":1,"userName":"apple","age":"23","sex":2,"intro":"白天不懂夜的黑","location":"成都","image":"http://192.168.137.1:8080/image/001.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImV4cCI6MTU1NDIwOTA1MiwiaWF0IjoxNTU0MTIyNjUyfQ.pcADmsjv7mq7Wt-PSqCKTuv7MT02-CA4PiJpbl2rt5w","password":"001"}}
+         * time : 1554123056000
          */
 
         private int reid;
@@ -120,15 +120,15 @@ public class RecipeLikeModel {
 
         public static class UserInfoBean {
             /**
-             * uid : 2
-             * userName : wx
-             * age : 21
-             * sex : 1
-             * intro : 白夜
-             * location : 上海
-             * image : http://192.168.137.1:8080/image/002.jpg
-             * token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImV4cCI6MTU1MzU5OTIxMSwiaWF0IjoxNTUzNTEyODExfQ.7lhf08pdNMn7CeKcpfn7VDLkorj7LuhPnJmJ0LWUUbM
-             * password : 002
+             * uid : 1
+             * userName : apple
+             * age : 23
+             * sex : 2
+             * intro : 白天不懂夜的黑
+             * location : 成都
+             * image : http://192.168.137.1:8080/image/001.jpg
+             * token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImV4cCI6MTU1NDIwOTA1MiwiaWF0IjoxNTU0MTIyNjUyfQ.pcADmsjv7mq7Wt-PSqCKTuv7MT02-CA4PiJpbl2rt5w
+             * password : 001
              */
 
             private int uid;
@@ -232,7 +232,7 @@ public class RecipeLikeModel {
              植物油 适量
 
              * image : http://192.168.137.1:8080/image/1.jpg
-             * visiteds : 110
+             * visiteds : 130
              * collects : 1
              * likes : 0
              * tags : 热菜
@@ -243,6 +243,7 @@ public class RecipeLikeModel {
              冬季食谱
 
              * intro :
+             * userInfo : {"uid":1,"userName":"apple","age":"23","sex":2,"intro":"白天不懂夜的黑","location":"成都","image":"http://192.168.137.1:8080/image/001.jpg","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImV4cCI6MTU1NDIwOTA1MiwiaWF0IjoxNTU0MTIyNjUyfQ.pcADmsjv7mq7Wt-PSqCKTuv7MT02-CA4PiJpbl2rt5w","password":"001"}
              */
 
             private int reid;
@@ -256,6 +257,7 @@ public class RecipeLikeModel {
             private int likes;
             private String tags;
             private String intro;
+            private UserInfoBeanX userInfo;
 
             public int getReid() {
                 return reid;
@@ -343,6 +345,110 @@ public class RecipeLikeModel {
 
             public void setIntro(String intro) {
                 this.intro = intro;
+            }
+
+            public UserInfoBeanX getUserInfo() {
+                return userInfo;
+            }
+
+            public void setUserInfo(UserInfoBeanX userInfo) {
+                this.userInfo = userInfo;
+            }
+
+            public static class UserInfoBeanX {
+                /**
+                 * uid : 1
+                 * userName : apple
+                 * age : 23
+                 * sex : 2
+                 * intro : 白天不懂夜的黑
+                 * location : 成都
+                 * image : http://192.168.137.1:8080/image/001.jpg
+                 * token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImV4cCI6MTU1NDIwOTA1MiwiaWF0IjoxNTU0MTIyNjUyfQ.pcADmsjv7mq7Wt-PSqCKTuv7MT02-CA4PiJpbl2rt5w
+                 * password : 001
+                 */
+
+                private int uid;
+                private String userName;
+                private String age;
+                private int sex;
+                private String intro;
+                private String location;
+                private String image;
+                private String token;
+                private String password;
+
+                public int getUid() {
+                    return uid;
+                }
+
+                public void setUid(int uid) {
+                    this.uid = uid;
+                }
+
+                public String getUserName() {
+                    return userName;
+                }
+
+                public void setUserName(String userName) {
+                    this.userName = userName;
+                }
+
+                public String getAge() {
+                    return age;
+                }
+
+                public void setAge(String age) {
+                    this.age = age;
+                }
+
+                public int getSex() {
+                    return sex;
+                }
+
+                public void setSex(int sex) {
+                    this.sex = sex;
+                }
+
+                public String getIntro() {
+                    return intro;
+                }
+
+                public void setIntro(String intro) {
+                    this.intro = intro;
+                }
+
+                public String getLocation() {
+                    return location;
+                }
+
+                public void setLocation(String location) {
+                    this.location = location;
+                }
+
+                public String getImage() {
+                    return image;
+                }
+
+                public void setImage(String image) {
+                    this.image = image;
+                }
+
+                public String getToken() {
+                    return token;
+                }
+
+                public void setToken(String token) {
+                    this.token = token;
+                }
+
+                public String getPassword() {
+                    return password;
+                }
+
+                public void setPassword(String password) {
+                    this.password = password;
+                }
             }
         }
     }

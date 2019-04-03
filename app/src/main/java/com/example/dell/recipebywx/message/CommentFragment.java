@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import com.example.dell.recipebywx.service.ServiceAPI;
 import com.example.dell.recipebywx.service.XutilsHttp;
 import com.example.dell.recipebywx.utils.DensityUtils;
 import com.example.dell.recipebywx.utils.GlideCircleTransform;
+import com.example.dell.recipebywx.utils.GlideRoundTransform;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
 import com.google.gson.Gson;
@@ -76,6 +78,14 @@ public class CommentFragment extends Fragment {
         emptyLl = (LinearLayout)view.findViewById(R.id.message_none_ll);
         getMessage();
         return view;
+    }
+
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        if (enter) {
+            getMessage();
+        }
+        return super.onCreateAnimation(transit, enter, nextAnim);
     }
 
     private void initRecycleView() {
@@ -134,6 +144,21 @@ public class CommentFragment extends Fragment {
                     startActivity(intent);
                 }
             });
+            holder.recipeTv.setText(list.get(position).getComment().getRecipe().getTitle());
+            Glide.with(context).load(list.get(position).getComment().getRecipe().getImage())
+                    .transform(new GlideRoundTransform(context,2))
+                    .into(holder.recipeIv);
+            Glide.with(context).load(list.get(position).getComment().getRecipe().getUserInfo().getImage())
+                    .transform(new GlideCircleTransform(context))
+                    .into(holder.creatorIv);
+            holder.creatorIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(),UserActivity.class);
+                    intent.putExtra("userId",String.valueOf(list.get(position).getComment().getRecipe().getUid()));
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override
@@ -148,6 +173,9 @@ public class CommentFragment extends Fragment {
             private TextView timeTv;
             private TextView contentTv;
             private TextView messageTv;
+            private ImageView recipeIv;
+            private TextView recipeTv;
+            private ImageView creatorIv;
             public Holder(View itemView) {
                 super(itemView);
                 iconIv = (ImageView)itemView.findViewById(R.id.icon_iv);
@@ -155,27 +183,58 @@ public class CommentFragment extends Fragment {
                 timeTv = (TextView)itemView.findViewById(R.id.time_tv);
                 contentTv = (TextView)itemView.findViewById(R.id.content_tv);
                 messageTv = (TextView)itemView.findViewById(R.id.message_tv);
-                final String[] items = {"查看菜谱详情","不再显示此回复"};
+                recipeIv = (ImageView)itemView.findViewById(R.id.recipe_image_iv);
+                recipeTv = (TextView)itemView.findViewById(R.id.recipe_name_tv);
+                creatorIv = (ImageView)itemView.findViewById(R.id.creator_iv);
+                final String[] items = {"确认","取消"};
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Intent intent = new Intent(getContext(),RecipeDetailActivity.class);
+                        intent.putExtra("reid",String.valueOf(list.get(position).getReid()));
+                        startActivity(intent);
+                    }
+                });
+                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
                         dialog = new AlertDialog.Builder(getActivity())
+                                .setTitle("确认删除此消息？")
                                 .setItems(items, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         if (which == 0) {
-                                            Intent intent = new Intent(getActivity(),RecipeDetailActivity.class);
-                                            intent.putExtra("reid",String.valueOf(list.get(position).getReid()));
-                                            startActivity(intent);
+                                            delMessage(position);
                                         }
                                         else {
-                                            delMessage(position);
+                                            dialog.dismiss();
                                         }
                                     }
                                 }).create();
                         dialog.show();
+                        return true;
                     }
                 });
+//                itemView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialog = new AlertDialog.Builder(getActivity())
+//                                .setItems(items, new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        if (which == 0) {
+//                                            Intent intent = new Intent(getActivity(),RecipeDetailActivity.class);
+//                                            intent.putExtra("reid",String.valueOf(list.get(position).getReid()));
+//                                            startActivity(intent);
+//                                        }
+//                                        else {
+//                                            delMessage(position);
+//                                        }
+//                                    }
+//                                }).create();
+//                        dialog.show();
+//                    }
+//                });
             }
         }
     }

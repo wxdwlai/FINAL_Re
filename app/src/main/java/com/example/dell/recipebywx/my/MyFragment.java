@@ -73,6 +73,7 @@ public class MyFragment extends Fragment {
     private LinearLayout viewLogsLl;
     private LinearLayout tasetLikeLl;
     private RecyclerView tasetRcy;
+    private UserInforModel userInforModel;
     private List<UserInforModel.DataBean.UserTastesBean> tasteList  = new ArrayList<>();
     private TasteAdapter adapter;
 
@@ -390,7 +391,7 @@ public class MyFragment extends Fragment {
         @Override
         public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
             Holder holder = null;
-            View view = LayoutInflater.from(context).inflate(R.layout.layout_common_image,parent,false);
+            View view = LayoutInflater.from(context).inflate(R.layout.layout_recipe_item,parent,false);
             holder = new Holder(view);
             return holder;
         }
@@ -400,6 +401,10 @@ public class MyFragment extends Fragment {
             Glide.with(context).load(list.get(position).getImage())
             .transform(new CenterCrop(context),new GlideRoundTransform(context,5))
             .into(holder.imageView);
+            holder.nameTv.setText(list.get(position).getTitle());
+            Glide.with(context).load(userInforModel.getData().getImage())
+            .transform(new GlideCircleTransform(context))
+            .into(holder.creatorIv);
             holder.position = position;
         }
 
@@ -411,10 +416,14 @@ public class MyFragment extends Fragment {
         public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
             private ImageView imageView;
+            private TextView nameTv;
+            private ImageView creatorIv;
             private int position;
             public Holder(View itemView) {
                 super(itemView);
-                imageView = (ImageView)itemView.findViewById(R.id.image_iv);
+                imageView = (ImageView)itemView.findViewById(R.id.recipe_image_iv);
+                nameTv = (TextView)itemView.findViewById(R.id.recipe_name_tv);
+                creatorIv = (ImageView)itemView.findViewById(R.id.creator_iv);
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -440,7 +449,7 @@ public class MyFragment extends Fragment {
             public void onResponse(String result) {
                 if (result != null) {
                     Gson gson = new Gson();
-                    UserInforModel userInforModel = gson.fromJson(result,UserInforModel.class);
+                    userInforModel = gson.fromJson(result,UserInforModel.class);
                     if (userInforModel.isSuccess()) {
                         tasteList.clear();
                         tasteList = userInforModel.getData().getUserTastes();

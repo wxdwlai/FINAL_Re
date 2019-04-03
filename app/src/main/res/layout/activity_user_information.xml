@@ -195,15 +195,15 @@
             android:id="@+id/id_taste_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/white"
-            android:layout_marginBottom="4dp">
+            android:orientation="vertical">
             <LinearLayout
                 android:id="@+id/id_like_ll"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp"
+                android:background="@color/white">
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"

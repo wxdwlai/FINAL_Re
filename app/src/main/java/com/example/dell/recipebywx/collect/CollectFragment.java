@@ -37,6 +37,7 @@ import com.example.dell.recipebywx.search.RecipeDetailActivity;
 import com.example.dell.recipebywx.service.ServiceAPI;
 import com.example.dell.recipebywx.service.XutilsHttp;
 import com.example.dell.recipebywx.utils.DensityUtils;
+import com.example.dell.recipebywx.utils.GlideCircleTransform;
 import com.example.dell.recipebywx.utils.GlideRoundTransform;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
@@ -245,27 +246,22 @@ public class CollectFragment extends Fragment {
         public void onBindViewHolder(Holer holder, final int position) {
             holder.position = position;
             holder.cookingName.setText(list.get(position).getTitle());
-            holder.cookingMaterias.setText(list.get(position).getIngs());
+//            holder.cookingMaterias.setText(list.get(position).getIngs());
             if (list.get(position).getTags() != null && list.get(position).getTags().length() != 0) {
-                holder.userName.setText(list.get(position).getTags().replaceAll("\n"," "));
+                holder.cookingMaterias.setText(list.get(position).getTags().replaceAll("\n"," "));
             }
             holder.cookingScore.setText(String.valueOf(list.get(position).getScore()));
             holder.cookingNumber.setText(list.get(position).getTitle());
+            holder.userName.setText(list.get(position).getUserInfo().getUserName());
+            Glide.with(context)
+                    .load(list.get(position).getUserInfo().getImage())
+                    .transform(new GlideCircleTransform(context)).
+                    into(holder.creatorIv);
             Glide.with(context)
                     .load(list.get(position).getImage())
                     .transform(new CenterCrop(context),new GlideRoundTransform(context,5))
                     .into(holder.cookingImage);
 //            XutilsHttp.getInstance().bindCircularImage3(holder.cookingImage,list.get(position).getImage().toString(),10);
-
-//            final String reid = String.valueOf(list.get(position).getReid());
-//            holder.cookingImage.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
-//                    intent.putExtra("reid",reid);
-//                    startActivity(intent);
-//                }
-//            });
         }
 
         @Override
@@ -281,6 +277,7 @@ public class CollectFragment extends Fragment {
             private TextView cookingScore;
             private TextView cookingNumber;
             private int position;
+            private ImageView creatorIv;
 
             public Holer(View itemView) {
                 super(itemView);
@@ -290,7 +287,7 @@ public class CollectFragment extends Fragment {
                 userName = (TextView) itemView.findViewById(R.id.cooking_user_name_tv);
                 cookingScore = (TextView) itemView.findViewById(R.id.cooking_score_tv);
                 cookingNumber = (TextView) itemView.findViewById(R.id.cooking_num_tv);
-
+                creatorIv = (ImageView)itemView.findViewById(R.id.creator_iv);
 //                final String reid = String.valueOf(list.get(position).getReid());
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

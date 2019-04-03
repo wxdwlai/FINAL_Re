@@ -66,6 +66,7 @@ public class RecipeDetailActivity extends AppCompatActivity{
     private RecyclerView recyclerView;
     private RecipeAdapter recipeAdapter;
     private RecipeDetailModel recipeDetailModel;
+    private ImageView toolBarRightIv;
     private List<RecipeDetailModel.DataBean.StepsListBean> stepsList = new ArrayList<>();
 
     private LinearLayout userLl;
@@ -105,6 +106,7 @@ public class RecipeDetailActivity extends AppCompatActivity{
         back = (LinearLayout)findViewById(R.id.toolbar_left_btn);
         title = (TextView)findViewById(R.id.toolbar_center_tv);
         toolbarTitle = (TextView)findViewById(R.id.toolbar_center_tv);
+        toolBarRightIv = (ImageView)findViewById(R.id.toolbar_right_image);
         cookingImgIv = (ImageView)findViewById(R.id.cooking_iv);
         cookingNameTv = (TextView)findViewById(R.id.cooking_name_tv);
 //        userLl = (LinearLayout)findViewById(R.id.user_ll);
@@ -188,6 +190,14 @@ public class RecipeDetailActivity extends AppCompatActivity{
             }
         });
         userIconIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecipeDetailActivity.this, UserActivity.class);
+                intent.putExtra("userId",String.valueOf(recipeDetailModel.getData().getUid()));
+                startActivity(intent);
+            }
+        });
+        toolBarRightIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RecipeDetailActivity.this, UserActivity.class);
@@ -471,6 +481,8 @@ public class RecipeDetailActivity extends AppCompatActivity{
 //                        XutilsHttp.getInstance().bindCircularImage(userIconIv,userInfo.getImage());
                         Glide.with(getApplicationContext()).load(userInfo.getImage())
                                 .transform(new GlideCircleTransform(getApplicationContext())).into(userIconIv);
+                        Glide.with(getApplicationContext()).load(userInfo.getImage())
+                                .transform(new GlideCircleTransform(getApplicationContext())).into(toolBarRightIv);
                         userNameTv.setText(recipeDetailModel.getData().getUserInfo().getUserName());
                         if (userInfo.getSex() != 0) {
                             userSexIv.setVisibility(View.VISIBLE);

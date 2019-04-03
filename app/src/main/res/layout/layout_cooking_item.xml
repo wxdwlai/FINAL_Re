@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/cooking_img_iv"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
+        android:layout_width="150dp"
+        android:layout_height="120dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="18dp"
         android:background="@drawable/cooking_image_border"/>
@@ -21,7 +21,7 @@
             android:id="@+id/cooking_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14dp"
+            android:textSize="16dp"
             android:text="菜名"
             android:textColor="@color/title"
             android:textStyle="bold"/>
@@ -34,15 +34,28 @@
             android:maxLines="2"
             android:textColor="@color/title_text"
             android:text="食材"/>
-        <TextView
-            android:id="@+id/cooking_user_name_tv"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/title_subtitle"
-            android:textSize="10dp"
-            android:text="用户名"
-            android:maxLines="2"
-            android:layout_marginTop="5dp"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:id="@+id/creator_iv"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"/>
+            <TextView
+                android:id="@+id/cooking_user_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/title_text"
+                android:textSize="14dp"
+                android:text="用户名"
+                android:maxLines="1" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -143,6 +143,18 @@ public class RecipeLikeFragment extends Fragment {
                     startActivity(intent);
                 }
             });
+            Glide.with(context).load(list.get(position).getRecipe().getUserInfo().getImage())
+                    .transform(new GlideCircleTransform(context))
+                    .into(holder.creatorIv);
+
+            holder.creatorIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(),UserActivity.class);
+                    intent.putExtra("userId",String.valueOf(list.get(position).getRecipe().getUid()));
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override
@@ -160,6 +172,7 @@ public class RecipeLikeFragment extends Fragment {
             private LinearLayout commentLl;
             private ImageView recipeIv;
             private TextView recipeTv;
+            private ImageView creatorIv;
             public Holder(View itemView) {
                 super(itemView);
                 iconIv = (ImageView)itemView.findViewById(R.id.icon_iv);
@@ -171,7 +184,8 @@ public class RecipeLikeFragment extends Fragment {
 //                commentLl.setVisibility(View.GONE);
                 recipeIv = (ImageView)itemView.findViewById(R.id.recipe_image_iv);
                 recipeTv = (TextView)itemView.findViewById(R.id.recipe_name_tv);
-                final String[] items = {"查看菜谱详情","不再显示此回复"};
+                creatorIv = (ImageView)itemView.findViewById(R.id.creator_iv);
+                final String[] items = {"确认","取消"};
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -193,6 +207,26 @@ public class RecipeLikeFragment extends Fragment {
 //                                    }
 //                                }).create();
 //                        dialog.show();
+                    }
+                });
+                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        dialog = new AlertDialog.Builder(getActivity())
+                                .setTitle("确认删除此消息？")
+                                .setItems(items, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        if (which == 0) {
+//                                            delMessage(position);
+                                        }
+                                        else {
+                                            dialog.dismiss();
+                                        }
+                                    }
+                                }).create();
+                        dialog.show();
+                        return true;
                     }
                 });
             }

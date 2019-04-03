@@ -46,6 +46,7 @@ public class UserActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecipeAdapter recipeAdapter;
+    private UserInforModel userInforModel;
     private List<UserInforModel.DataBean.RecipesBean> recipeList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +118,9 @@ public class UserActivity extends AppCompatActivity {
                     .transform(new CenterCrop(context),new GlideRoundTransform(context,5))
                     .into(holder.recipeIv);
             holder.recipeTv.setText(list.get(position).getTitle());
+            Glide.with(context).load(userInforModel.getData().getImage())
+                    .transform(new GlideCircleTransform(context))
+                    .into(holder.creatorIv);
         }
 
         @Override
@@ -129,10 +133,12 @@ public class UserActivity extends AppCompatActivity {
             private ImageView recipeIv;
             private TextView recipeTv;
             private int position;
+            private ImageView creatorIv;
             public Holder(View itemView) {
                 super(itemView);
                 recipeIv = (ImageView)itemView.findViewById(R.id.recipe_image_iv);
                 recipeTv = (TextView)itemView.findViewById(R.id.recipe_name_tv);
+                creatorIv = (ImageView)itemView.findViewById(R.id.creator_iv);
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -153,7 +159,7 @@ public class UserActivity extends AppCompatActivity {
             public void onResponse(String result) {
                 if (result != null) {
                     Gson gson = new Gson();
-                    UserInforModel userInforModel = gson.fromJson(result,UserInforModel.class);
+                    userInforModel = gson.fromJson(result,UserInforModel.class);
                     if (userInforModel.isSuccess()) {
 //                        initRecyclerView();
                         recipeList.clear();

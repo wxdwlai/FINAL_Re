@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:textSize="14dp"
             android:layout_marginTop="3dp"
-            android:textColor="@color/title_subtitle"
+            android:textColor="@color/title_text"
             android:maxLines="1"
             android:text="消息内容"
             android:ellipsize="end"
@@ -62,13 +62,19 @@
                 android:layout_height="50dp" />
             <TextView
                 android:id="@+id/recipe_name_tv"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:text="标题"
                 android:textSize="14dp"
                 android:textColor="@color/title_text"
                 android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"/>
+            <ImageView
+                android:id="@+id/creator_iv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
 

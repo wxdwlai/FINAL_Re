@@ -26,6 +26,7 @@ import com.example.dell.recipebywx.search.RecipeDetailActivity;
 import com.example.dell.recipebywx.service.ServiceAPI;
 import com.example.dell.recipebywx.service.XutilsHttp;
 import com.example.dell.recipebywx.utils.DensityUtils;
+import com.example.dell.recipebywx.utils.GlideCircleTransform;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
 import com.google.gson.Gson;
 
@@ -139,11 +140,14 @@ public class CookingListFragment extends Fragment {
         public void onBindViewHolder(Holer holder, int position) {
             holder.positon = position;
             holder.cookingName.setText(list.get(position).getTitle());
-            holder.cookingMaterias.setText(list.get(position).getIngs());
+//            holder.cookingMaterias.setText(list.get(position).getIngs());
             if (list.get(position).getTags() != null && list.get(position).getTags().length() != 0) {
-                holder.userName.setText(list.get(position).getTags().replaceAll("\n"," "));
+                holder.cookingMaterias.setText(list.get(position).getTags().replaceAll("\n"," "));
             }
-
+            holder.userName.setText(list.get(position).getUserInfo().getUserName());
+            Glide.with(context).load(list.get(position).getUserInfo().getImage())
+                    .transform(new GlideCircleTransform(context))
+                    .into(holder.creatorIv);
 //            holder.cookingScore.setText(list.get(position).getCookingScore());
 //            holder.cookingNumber.setText(list.get(position).getCookingNum());
 //            Glide.with(context).load();
@@ -163,6 +167,7 @@ public class CookingListFragment extends Fragment {
             private TextView cookingScore;
             private TextView cookingNumber;
             private int positon;
+            private ImageView creatorIv;
 
             public Holer(View itemView) {
                 super(itemView);
@@ -172,7 +177,7 @@ public class CookingListFragment extends Fragment {
                 userName = (TextView) itemView.findViewById(R.id.cooking_user_name_tv);
                 cookingScore = (TextView) itemView.findViewById(R.id.cooking_score_tv);
                 cookingNumber = (TextView) itemView.findViewById(R.id.cooking_num_tv);
-
+                creatorIv = (ImageView)itemView.findViewById(R.id.creator_iv);
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

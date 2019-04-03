@@ -52,8 +52,7 @@
             <ImageView
                 android:id="@+id/toolbar_right_image"
                 android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/setting"/>
+                android:layout_height="18dp"/>
         </LinearLayout>
     </RelativeLayout>
 
