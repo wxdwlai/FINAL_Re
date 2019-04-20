@@ -72,24 +72,24 @@ public class RecommendFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         localUserInfo = new LocalUserInfo(getContext());
-        initData();
+//        initData();
         if (getArguments() != null) {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        localUserInfo = new LocalUserInfo(getContext());
-        initData();
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        localUserInfo = new LocalUserInfo(getContext());
+//        initData();
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
 
-    @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        localUserInfo = new LocalUserInfo(getContext());
-        initData();
-        return super.onCreateAnimation(transit, enter, nextAnim);
-    }
+//    @Override
+//    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+//        localUserInfo = new LocalUserInfo(getContext());
+//        initData();
+//        return super.onCreateAnimation(transit, enter, nextAnim);
+//    }
 
     private void initData() {
         getRecommend();
@@ -134,19 +134,19 @@ public class RecommendFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
-        if (enter) {
-            initData();
-        }
-        return super.onCreateAnimator(transit, enter, nextAnim);
-    }
+//    @Override
+//    public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
+//        if (enter) {
+//            initData();
+//        }
+//        return super.onCreateAnimator(transit, enter, nextAnim);
+//    }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        getRecommend();
-        super.onActivityCreated(savedInstanceState);
-    }
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        initData();
+//        super.onActivityCreated(savedInstanceState);
+//    }
 
 
     public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Holder> {

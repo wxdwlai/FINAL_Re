@@ -62,8 +62,8 @@ public class CookingListFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_cooking_list,null);
         initData();
-        cookingRecyclerView = (RecyclerView)view.findViewById(R.id.cooking_rv);
-        initRecyclerView();
+//        cookingRecyclerView = (RecyclerView)view.findViewById(R.id.cooking_rv);
+//        initRecyclerView();
         return view;
     }
 
@@ -116,6 +116,7 @@ public class CookingListFragment extends Fragment {
         private CookingRecyclerViewAdapter(Context context, List<SearchResultModel.DataBean> list) {
             this.context = context;
             this.list = list;
+            notifyDataSetChanged();
         }
 
         /**
@@ -223,14 +224,16 @@ public class CookingListFragment extends Fragment {
                 if (result != null) {
                     SearchResultModel resultModel = new Gson().fromJson(result,SearchResultModel.class);
                     if (resultModel.isSuccess()) {
-                        list = resultModel.getData();
+                        list.clear();
+                        list.addAll(resultModel.getData());
                         if (list.size()>0) {
-                            if(cookingRecyclerView == null) {
-                                initRecyclerView();
-                            }
-                            else {
-                                cookingAdapter.notifyDataSetChanged();
-                            }
+                            initRecyclerView();
+//                            if(cookingRecyclerView == null) {
+//                                initRecyclerView();
+//                            }
+//                            else {
+//                                cookingAdapter.notifyDataSetChanged();
+//                            }
                         }
                         else {
                             //显示空白页，但是这里不应该出现空白页

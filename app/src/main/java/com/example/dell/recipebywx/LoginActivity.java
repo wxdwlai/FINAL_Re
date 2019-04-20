@@ -111,8 +111,11 @@ public class LoginActivity extends AppCompatActivity {
                     LocalUserInfo localUserInfo = new LocalUserInfo(getApplicationContext());
                     localUserInfo.setUserInfo(userInforModel);
                     MobSDK.setUser(localUserInfo.getUserInfo().getUid(), localUserInfo.getUserInfo().getName(),localUserInfo.getUserInfo().getIconurl(), null);
-                    Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,userInforModel.getMessage(),Toast.LENGTH_SHORT).show();
                     finish();
+                }
+                else {
+                    Toast.makeText(LoginActivity.this,"登录失败",Toast.LENGTH_SHORT).show();
                 }
 //                if (result.equals("200")) {
 ////                    MyFragment myFragment = new MyFragment();
