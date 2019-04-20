@@ -1,5 +1,6 @@
 package com.example.dell.recipebywx;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,7 +51,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getLogin();
-                Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        registerTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
             }
         });
 
@@ -103,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                     LocalUserInfo localUserInfo = new LocalUserInfo(getApplicationContext());
                     localUserInfo.setUserInfo(userInforModel);
                     MobSDK.setUser(localUserInfo.getUserInfo().getUid(), localUserInfo.getUserInfo().getName(),localUserInfo.getUserInfo().getIconurl(), null);
+                    Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
                     finish();
                 }
 //                if (result.equals("200")) {

@@ -7,6 +7,9 @@ package com.example.dell.recipebywx.service;
 public class ServiceAPI {
     public static String DOMAIN = "http://192.168.137.1:8080/";
     public static String LoginUrl = DOMAIN + "login";//用户登录接口
+
+    public static String RegisterUrl = DOMAIN + "register";//用户注册接口
+
     public static String ListUrl = DOMAIN + "listRecipe";//展示菜谱接口
     public static String GetUser = DOMAIN + "getUserDetail";//获取用户信息
     public static String UpdateUserInfor = DOMAIN + "update/UserInfor";//修改用户资料
