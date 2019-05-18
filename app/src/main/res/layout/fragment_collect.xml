@@ -10,12 +10,16 @@
     app:home_right_tv_text="搜索"
     android:orientation="vertical"
     tools:context="com.example.dell.recipebywx.collect.CollectFragment">
-
-    <android.support.v7.widget.RecyclerView
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/collect_ryv"></android.support.v7.widget.RecyclerView>
-    
+        android:id="@+id/collect_refresh">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/collect_ryv"></android.support.v7.widget.RecyclerView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
     <LinearLayout
         android:id="@+id/empty_ll"
         android:layout_width="match_parent"
@@ -37,5 +41,4 @@
             android:textSize="14dp"
             android:text="还未收藏过哦~"/>
     </LinearLayout>
-
 </com.example.dell.recipebywx.HomeToolbar>

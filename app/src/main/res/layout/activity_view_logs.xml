@@ -10,10 +10,15 @@
     app:center_tv_text="浏览历史"
     android:orientation="vertical"
     tools:context="com.example.dell.recipebywx.my.ViewLogsActivity">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/views_rcy"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:id="@+id/viewlogs_refresh">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/views_rcy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     <TextView
         android:id="@+id/empty_tv"
         android:layout_width="match_parent"

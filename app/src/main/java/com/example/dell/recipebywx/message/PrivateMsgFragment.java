@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,13 @@ import com.example.dell.recipebywx.utils.GlideCircleTransform;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +42,7 @@ public class PrivateMsgFragment extends Fragment {
 
     private LocalUserInfo localUserInfo;
     private View view;
+    private SmartRefreshLayout refreshLayout;
     private RecyclerView messageRcy;
     private MessageAdapter adapter;
     private List<PrivateMessageModel.DataBean> list = new ArrayList<>();
@@ -62,6 +71,23 @@ public class PrivateMsgFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_private_msg,null);
         localUserInfo = new LocalUserInfo(getActivity());
+        refreshLayout = (SmartRefreshLayout)view.findViewById(R.id.refresh);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(1000);
+                getPrivate();
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishLoadMore(1000);
+                getPrivate();
+            }
+        });
         getPrivate();
         return view;
     }

@@ -62,7 +62,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.mob.MobSDK.getContext;
+//import static com.mob.MobSDK.getContext;
 
 public class PostRecipeActivity extends AppCompatActivity {
 
@@ -132,7 +132,7 @@ public class PostRecipeActivity extends AppCompatActivity {
                     //将拍摄的照片显示出来
                     Bitmap bitmap = null;
                     try {
-                        bitmap = BitmapFactory.decodeStream(getContext().getContentResolver().openInputStream(imageUri));
+                        bitmap = BitmapFactory.decodeStream(getApplicationContext().getContentResolver().openInputStream(imageUri));
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }

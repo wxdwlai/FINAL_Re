@@ -31,12 +31,12 @@ import com.example.dell.recipebywx.utils.Helper;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
 import com.google.gson.Gson;
-import com.mob.commons.MOBIM;
-import com.mob.imsdk.MobIM;
-import com.mob.imsdk.MobIMCallback;
-import com.mob.imsdk.MobIMMessageReceiver;
-import com.mob.imsdk.model.IMConversation;
-import com.mob.imsdk.model.IMMessage;
+//import com.mob.commons.MOBIM;
+//import com.mob.imsdk.MobIM;
+//import com.mob.imsdk.MobIMCallback;
+//import com.mob.imsdk.MobIMMessageReceiver;
+//import com.mob.imsdk.model.IMConversation;
+//import com.mob.imsdk.model.IMMessage;
 
 import org.w3c.dom.Text;
 

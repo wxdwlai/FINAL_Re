@@ -1,7 +1,8 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/comment_refresh"
     tools:context="com.example.dell.recipebywx.message.CommentFragment">
 
     <android.support.v7.widget.RecyclerView
@@ -40,4 +41,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</FrameLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

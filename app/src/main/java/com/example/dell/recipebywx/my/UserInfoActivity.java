@@ -51,7 +51,7 @@ import java.util.logging.SimpleFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.mob.MobSDK.getContext;
+//import static com.mob.MobSDK.getContext;
 
 public class UserInfoActivity extends AppCompatActivity {
 

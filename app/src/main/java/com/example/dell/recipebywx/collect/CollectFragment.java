@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -42,6 +43,13 @@ import com.example.dell.recipebywx.utils.GlideRoundTransform;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,6 +60,7 @@ public class CollectFragment extends Fragment {
 
     private LocalUserInfo localUserInfo;
     private View view;
+    private SmartRefreshLayout refreshLayout;
     private EditText searchEtv;
     private TextView searchTv;
     private RecyclerView collectRyv;
@@ -81,6 +90,23 @@ public class CollectFragment extends Fragment {
         initData();
         localUserInfo = new LocalUserInfo(getContext());
         getUserCollects();
+        refreshLayout = (SmartRefreshLayout)view.findViewById(R.id.collect_refresh);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(1000);
+                getUserCollects();
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishLoadMore(1000);
+                getUserCollects();
+            }
+        });
         searchEtv = (EditText)view.findViewById(R.id.toolbar_search_etv);
         searchTv = (TextView)view.findViewById(R.id.toolbar_right_tv);
         searchEtv.addTextChangedListener(new TextWatcher() {

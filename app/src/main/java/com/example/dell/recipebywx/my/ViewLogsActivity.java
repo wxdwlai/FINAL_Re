@@ -2,6 +2,7 @@ package com.example.dell.recipebywx.my;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +27,13 @@ import com.example.dell.recipebywx.utils.Helper;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +43,7 @@ import java.util.Map;
 public class ViewLogsActivity extends AppCompatActivity {
 
     private LocalUserInfo localUserInfo;
+    private SmartRefreshLayout refreshLayout;
     private TextView emptyTv;
     private LinearLayout back;
     private RecyclerView recyclerView;
@@ -61,6 +70,24 @@ public class ViewLogsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        refreshLayout = (SmartRefreshLayout)findViewById(R.id.viewlogs_refresh);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getApplicationContext()));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(getApplicationContext()).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(1000);
+                getViewLogs();
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishLoadMore(1000);
+                getViewLogs();
             }
         });
     }

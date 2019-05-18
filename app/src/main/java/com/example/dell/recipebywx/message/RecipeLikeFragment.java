@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,6 +32,13 @@ import com.example.dell.recipebywx.utils.GlideRoundTransform;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,6 +50,7 @@ public class RecipeLikeFragment extends Fragment {
 
     private LocalUserInfo localUserInfo;
     private View view;
+    private SmartRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
     private MessageAdapter adapter;
     private List<RecipeLikeModel.DataBean> list = new ArrayList<>();
@@ -71,6 +80,23 @@ public class RecipeLikeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_recipe_comment, null);
         emptyLl = (LinearLayout)view.findViewById(R.id.message_none_ll);
         localUserInfo = new LocalUserInfo(getContext());
+        refreshLayout = (SmartRefreshLayout)view.findViewById(R.id.like_refresh);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(1000);
+                getMessage();
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishLoadMore(1000);
+                getMessage();
+            }
+        });
         getMessage();
 
         return view;

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -32,6 +33,13 @@ import com.example.dell.recipebywx.utils.GlideRoundTransform;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +52,7 @@ public class CommentFragment extends Fragment {
 
     private LocalUserInfo localUserInfo;
     private View view;
+    private SmartRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
     private MessageAdapter adapter;
     private List<MessageModel.DataBean> list = new ArrayList<>();
@@ -76,6 +85,23 @@ public class CommentFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_comment,null);
         localUserInfo = new LocalUserInfo(getContext());
         emptyLl = (LinearLayout)view.findViewById(R.id.message_none_ll);
+        refreshLayout = (SmartRefreshLayout)view.findViewById(R.id.comment_refresh);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(1000);
+                getMessage();
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishLoadMore(1000);
+                getMessage();
+            }
+        });
         getMessage();
         return view;
     }
@@ -215,26 +241,6 @@ public class CommentFragment extends Fragment {
                         return true;
                     }
                 });
-//                itemView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        dialog = new AlertDialog.Builder(getActivity())
-//                                .setItems(items, new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        if (which == 0) {
-//                                            Intent intent = new Intent(getActivity(),RecipeDetailActivity.class);
-//                                            intent.putExtra("reid",String.valueOf(list.get(position).getReid()));
-//                                            startActivity(intent);
-//                                        }
-//                                        else {
-//                                            delMessage(position);
-//                                        }
-//                                    }
-//                                }).create();
-//                        dialog.show();
-//                    }
-//                });
             }
         }
     }

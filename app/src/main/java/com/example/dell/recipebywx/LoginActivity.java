@@ -18,7 +18,7 @@ import com.example.dell.recipebywx.utils.Helper;
 import com.example.dell.recipebywx.utils.Local;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.google.gson.Gson;
-import com.mob.MobSDK;
+//import com.mob.MobSDK;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (userInforModel.isSuccess()) {
                     LocalUserInfo localUserInfo = new LocalUserInfo(getApplicationContext());
                     localUserInfo.setUserInfo(userInforModel);
-                    MobSDK.setUser(localUserInfo.getUserInfo().getUid(), localUserInfo.getUserInfo().getName(),localUserInfo.getUserInfo().getIconurl(), null);
+//                    MobSDK.setUser(localUserInfo.getUserInfo().getUid(), localUserInfo.getUserInfo().getName(),localUserInfo.getUserInfo().getIconurl(), null);
                     Toast.makeText(LoginActivity.this,userInforModel.getMessage(),Toast.LENGTH_SHORT).show();
                     finish();
                 }

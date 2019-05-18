@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
@@ -29,6 +30,13 @@ import com.example.dell.recipebywx.utils.DensityUtils;
 import com.example.dell.recipebywx.utils.GlideCircleTransform;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,6 +48,7 @@ import java.util.zip.Inflater;
 public class CookingListFragment extends Fragment {
 
     private View view;
+    private SmartRefreshLayout refreshLayout;
     private RecyclerView cookingRecyclerView;
     private CookingRecyclerViewAdapter cookingAdapter;
     private List<SearchResultModel.DataBean> list = new ArrayList<>();
@@ -62,6 +71,23 @@ public class CookingListFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_cooking_list,null);
         initData();
+        refreshLayout = (SmartRefreshLayout)view.findViewById(R.id.recipe_type_refresh);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(1000);
+                getByType();
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishLoadMore(1000);
+                getByType();
+            }
+        });
 //        cookingRecyclerView = (RecyclerView)view.findViewById(R.id.cooking_rv);
 //        initRecyclerView();
         return view;

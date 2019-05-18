@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -38,6 +39,13 @@ import com.example.dell.recipebywx.utils.Local;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.example.dell.recipebywx.utils.SpaceItemDecoration;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,6 +61,7 @@ public class RecommendFragment extends Fragment {
 
     private LocalUserInfo localUserInfo;
     private View view;
+    private SmartRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
     private RecommendAdapter adapter;
     private List<UserCollectsModel.DataBean> list = new ArrayList<>();
@@ -92,6 +101,24 @@ public class RecommendFragment extends Fragment {
 //    }
 
     private void initData() {
+        refreshLayout = (SmartRefreshLayout)view.findViewById(R.id.recommend_refresh);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(1000);
+                getRecommend();
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishLoadMore(1000);
+                getRecommend();
+            }
+        });
+
         getRecommend();
 //        String[] cookNames = {"可乐鸡翅","鱼香肉丝","松鼠桂鱼","红烧排骨","栗子风味小炒",
 //                "油闷大虾","麻婆豆腐","手撕包菜","糖醋里脊","干煸菜花","红烧肉","酸菜鱼","番茄炒蛋"};

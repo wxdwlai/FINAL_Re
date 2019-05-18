@@ -24,7 +24,7 @@ import com.example.dell.recipebywx.service.XutilsHttp;
 import com.example.dell.recipebywx.utils.Helper;
 import com.example.dell.recipebywx.utils.LocalUserInfo;
 import com.google.gson.Gson;
-import com.mob.wrappers.UMSSDKWrapper;
+//import com.mob.wrappers.UMSSDKWrapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;

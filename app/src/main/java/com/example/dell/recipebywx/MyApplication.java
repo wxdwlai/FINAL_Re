@@ -2,7 +2,7 @@ package com.example.dell.recipebywx;
 
 import android.app.Application;
 
-import com.mob.MobSDK;
+//import com.mob.MobSDK;
 
 import org.xutils.x;
 
@@ -15,6 +15,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         x.Ext.init(this);
-        MobSDK.init(this);
+//        MobSDK.init(this);
     }
 }
