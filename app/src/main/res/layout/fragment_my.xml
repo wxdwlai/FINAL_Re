@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     app:left_ll_src="@drawable/add"
     app:left_ll_visible="true"
-    app:center_search_ll_visible="true"
+    app:center_search_ll_visible="false"
     app:right_button_ll_visible="true"
     android:orientation="vertical"
     tools:context="com.example.dell.recipebywx.my.MyFragment">

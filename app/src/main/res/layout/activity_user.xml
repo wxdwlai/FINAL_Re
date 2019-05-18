@@ -82,6 +82,13 @@
                             android:layout_marginTop="5dp"
                             android:background="@drawable/girl2"
                             android:layout_gravity="center_vertical"/>
+                        <ImageView
+                            android:id="@+id/private_message_iv"
+                            android:layout_width="35dp"
+                            android:layout_height="25dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/message"
+                            android:layout_gravity="center"/>
                     </LinearLayout>
 
                     <LinearLayout

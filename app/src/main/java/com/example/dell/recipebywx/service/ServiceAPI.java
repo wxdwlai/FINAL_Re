@@ -64,4 +64,10 @@ public class ServiceAPI {
     public static String recipeType = DOMAIN + "recipeType";//获取所有菜谱类型
 
     public static String putTypes = DOMAIN + "putTypes";//保存菜谱类别
+
+    public static String getMessageUsers = DOMAIN + "getUsers";//获取私信人
+
+    public static String getPrivateMessage = DOMAIN + "getPrivateMessage";//获取私信消息接口
+
+    public static String sendMessage = DOMAIN + "sendMessage";//发送消息
 }

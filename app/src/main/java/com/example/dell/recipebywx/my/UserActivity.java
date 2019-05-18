@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.dell.recipebywx.R;
+import com.example.dell.recipebywx.message.MessageDetailActivity;
 import com.example.dell.recipebywx.model.UserInforModel;
 import com.example.dell.recipebywx.search.RecipeDetailActivity;
 import com.example.dell.recipebywx.service.ServiceAPI;
@@ -43,6 +44,7 @@ public class UserActivity extends AppCompatActivity {
     private ImageView sexIv;
     private TextView introTv;
     private TextView nameTv;
+    private ImageView privateMessageIv;
 
     private RecyclerView recyclerView;
     private RecipeAdapter recipeAdapter;
@@ -70,6 +72,10 @@ public class UserActivity extends AppCompatActivity {
         introTv = (TextView)findViewById(R.id.id_user_des_tv);
         sexIv = (ImageView)findViewById(R.id.id_user_sex_iv);
         nameTv = (TextView)findViewById(R.id.id_user_name_tv);
+        privateMessageIv = (ImageView)findViewById(R.id.private_message_iv);
+        if (uid.equals(localUserInfo.getUserInfo().getUid())) {
+            privateMessageIv.setVisibility(View.GONE);
+        }
         getUser();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,6 +196,16 @@ public class UserActivity extends AppCompatActivity {
 //                                .into(iconIv);
                         XutilsHttp.getInstance().bindCircularImage3(backgrondIv,userInforModel.getData().getImage(),0);
                         XutilsHttp.getInstance().bindCircularImage(iconIv, userInforModel.getData().getImage());
+
+                        privateMessageIv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(UserActivity.this, MessageDetailActivity.class);
+                                intent.putExtra("userId",String.valueOf(userInforModel.getData().getUid()));
+                                intent.putExtra("userName",userInforModel.getData().getUserName());
+                                startActivity(intent);
+                            }
+                        });
                     }
                 }
             }

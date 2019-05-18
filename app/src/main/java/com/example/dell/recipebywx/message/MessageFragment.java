@@ -101,11 +101,11 @@ public class MessageFragment extends Fragment {
 
         messageTab = (TabLayout)view.findViewById(R.id.message_type_tab);
         messageVp = (ViewPager)view.findViewById(R.id.message_vp);
-        String[] type = {"菜谱评论","消息评论","点赞"};
+        String[] type = {"私信","评论","点赞"};
         for (int i=0;i<3;i++) {
             typeList.add(type[i]);
         }
-        fragments.add(0,new RecipeCommentFragment());
+        fragments.add(0,new PrivateMsgFragment());
         fragments.add(1,new CommentFragment());
         fragments.add(2,new RecipeLikeFragment());
 //        for (int i=0;i<3;i++) {
