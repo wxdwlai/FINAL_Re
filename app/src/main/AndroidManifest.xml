@@ -65,7 +65,8 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".my.RecipeTypeSettingActivity" />
         <activity android:name=".my.UserActivity" />
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".search.RecipeCommentActivity"></activity>
     </application>
 
 </manifest>

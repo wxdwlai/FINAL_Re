@@ -45,6 +45,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private TextView emptyTv;
     private String keyword;
     private EditText searchEtv;
+    private LinearLayout rightLl;
     private RecyclerView resultRcy;
     private CookingRecyclerViewAdapter adapter;
 //    private List<CookingModel> list = new ArrayList<>();
@@ -91,6 +92,7 @@ public class SearchResultActivity extends AppCompatActivity {
                 finish();
             }
         });
+        rightLl = (LinearLayout)findViewById(R.id.toolbar_right_btn);
         searchEtv.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -111,6 +113,12 @@ public class SearchResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        rightLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SearchResultActivity.this,"请期待吧...",Toast.LENGTH_SHORT).show();
             }
         });
     }

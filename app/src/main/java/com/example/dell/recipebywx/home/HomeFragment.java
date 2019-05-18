@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dell.recipebywx.LoginActivity;
 import com.example.dell.recipebywx.R;
@@ -43,6 +44,8 @@ public class HomeFragment extends Fragment {
     private ImageView searchIv;
     private EditText searchEtv;
     private TextView searchTv;
+
+    private LinearLayout rightLl;
 
     private LinearLayout menuLl;
 
@@ -73,9 +76,16 @@ public class HomeFragment extends Fragment {
         searchTv = view.findViewById(R.id.toolbar_search_tv);
         searchTv.setVisibility(View.VISIBLE);
 
+        rightLl = (LinearLayout)view.findViewById(R.id.toolbar_right_btn);
         cookingStyleTab = (TabLayout)view.findViewById(R.id.style_of_cooking_tab);
         cookingView = (ViewPager)view.findViewById(R.id.style_of_cooking_view);
 
+        rightLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(),"请期待吧...",Toast.LENGTH_SHORT).show();
+            }
+        });
         String[] styles = {"推荐","热菜","家常菜","早餐","午餐","下午茶","晚餐","儿童","老人","烘焙","川菜","甜品",};
         for (int i=0;i<styles.length;i++) {
             if (i==0) {

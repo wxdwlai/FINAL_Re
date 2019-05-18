@@ -73,6 +73,8 @@ public class RecipeDetailActivity extends AppCompatActivity{
     private ImageView userIconIv;
     private TextView userNameTv;
     private ImageView userSexIv;
+    private TextView commentDetailTv;
+    private TextView emptyCommentTv;
 
 
     private LinearLayout commentLl;
@@ -121,7 +123,8 @@ public class RecipeDetailActivity extends AppCompatActivity{
             }
         });
 
-
+        commentDetailTv = (TextView)findViewById(R.id.comment_detail_tv);
+        emptyCommentTv = (TextView)findViewById(R.id.empty_tv);
         likeLl = (LinearLayout)findViewById(R.id.like_ll);
         likeIv = (ImageView)findViewById(R.id.like_iv);
         likeTv = (TextView)findViewById(R.id.like_tv);
@@ -164,11 +167,23 @@ public class RecipeDetailActivity extends AppCompatActivity{
         commentLl = (LinearLayout)findViewById(R.id.comment_ll);
         commentLv = (CommentExpandableListView)findViewById(R.id.comment_lv);
 
+        commentDetailTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecipeDetailActivity.this,RecipeCommentActivity.class);
+                intent.putExtra("reid",reid);
+                startActivity(intent);
+            }
+        });
+
         if (localUserInfo.getUserInfo().getUid() != "0") {
             commentLl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showCommentDialog();
+//                    showCommentDialog();
+                    Intent intent = new Intent(RecipeDetailActivity.this,RecipeCommentActivity.class);
+                    intent.putExtra("reid",String.valueOf(recipeDetailModel.getData().getReid()));
+                    startActivity(intent);
                 }
             });
         }
@@ -475,7 +490,12 @@ public class RecipeDetailActivity extends AppCompatActivity{
                             }
                         }
                         if (commentsBeans.size() != 0) {
-                            initComment();
+//                            initComment();
+                            commentDetailTv.setText("查看全部评论");
+                            emptyCommentTv.setVisibility(View.GONE);
+                        }
+                        else {
+                            emptyCommentTv.setVisibility(View.VISIBLE);
                         }
                         RecipeDetailModel.DataBean.UserInfoBean userInfo = recipeDetailModel.getData().getUserInfo();
 //                        XutilsHttp.getInstance().bindCircularImage(userIconIv,userInfo.getImage());

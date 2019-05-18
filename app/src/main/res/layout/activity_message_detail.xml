@@ -32,20 +32,20 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
-            android:layout_marginLeft="18dp"
-            android:layout_marginRight="18dp"
-            android:background="@color/white"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
             >
             <EditText
                 android:id="@+id/input_etv"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:maxLines="4"
-                android:hint="请输入内容"
+                android:hint="请输入内容..."
+                android:layout_margin="10dp"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:background="@null"/>
             <TextView
                 android:id="@+id/send_tv"
@@ -54,7 +54,7 @@
                 android:background="@color/title_subtitle"
                 android:padding="4dp"
                 android:text="发送"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:textColor="@color/white"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>

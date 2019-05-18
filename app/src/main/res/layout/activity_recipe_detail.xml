@@ -143,6 +143,7 @@
                 <!--android:layout_marginRight="18dp"-->
                 <!--android:background="#efecec"/>-->
                 <TextView
+                    android:id="@+id/comment_detail_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
@@ -170,7 +171,8 @@
                     android:layout_height="wrap_content"
                     android:childDivider="#F6F6F6"
                     android:listSelector="@android:color/transparent"
-                    android:divider="@color/title"></com.example.dell.recipebywx.utils.CommentExpandableListView>
+                    android:divider="@color/title"
+                    android:visibility="gone"></com.example.dell.recipebywx.utils.CommentExpandableListView>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
         <include
